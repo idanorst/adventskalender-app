@@ -1,0 +1,236 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* VARIABLES */
+:root {
+  /* COLORS */
+  --BG-COLOR: rgb(76, 11, 172);
+  --START-PAGE-BUTTON-COLOR: rgb(209, 209, 209);
+  --TITLE-COLOR: rgb(233, 233, 233);
+
+  /* TEXT STYLES */
+  --FONT-FAMILY: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  --FONT-FAMILY-TR: 'Sacramento', sans-serif;
+}
+
+
+/* GENERAL STYLES */
+body {
+  height: 100vh;
+}
+
+
+/* LINK STYLES */
+a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--FONT-FAMILY);
+}
+
+a:hover {
+  opacity: 0.9;
+}
+
+.link--create {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  background-color: rgb(179, 65, 57);
+  color: var(--START-PAGE-BUTTON-COLOR);
+}
+
+.link--visit {
+  margin-top: 1rem;
+  background-color: rgb(155, 68, 67);
+  color: var(--START-PAGE-BUTTON-COLOR); 
+}
+
+/* LAYOUT STYLES */
+.top-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: var(--FONT-FAMILY-TR);
+  font-size: 1.5rem;
+  height: 60px;
+  background: radial-gradient(darkgreen, green);
+  color: whitesmoke;
+}
+
+
+
+/* START PAGE STYLES */
+.start-page--container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: radial-gradient(rgb(83, 208, 83), rgb(4, 53, 4));
+}
+
+.start-page--info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 480px;
+  background-image: url('./assets/images/BG3.JPG');
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+.start-page--title {
+  /* TODO: Fix the position of the title */
+  color: var(--TITLE-COLOR);
+  font-family: var(--FONT-FAMILY);
+  text-align: center;
+  letter-spacing: 2px;
+  word-wrap: break-word;
+  background-color: rgba(128, 128, 128, 0.571);
+}
+
+/* SETTINGS PAGE STYLES */
+
+.settings-page--title {
+  background-color: var(--BG-COLOR);
+  font-family: var(--FONT-FAMILY);
+  color: var(--TITLE-COLOR);
+}
+
+.calender-page h4 {
+  margin-top: 3rem;
+  font-family: var(--FONT-FAMILY);
+  color: var(--TITLE-COLOR);
+}
+
+.category-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+}
+
+/* Dropdown styles */
+.dropdown-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.dropdown-container {
+  margin-top: 1rem;
+  text-align: left;
+  border: 1px solid #ccc;
+  position: relative;
+  border-radius: 5px;
+  width: 70%;
+  background-color: #fff;
+}
+
+.dropdown-input {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  cursor: pointer;
+  font-family: var(--FONT-FAMILY);
+  font-size: 0.8rem;
+}
+
+.dropdown-input svg {
+  margin-left: 5px;
+  margin-top: 0.2rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  transform: translateY(4px);
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: auto;
+  max-height: 200px;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.dropdown-item {
+  padding: 5px;
+  cursor: pointer;
+  color: black;
+  font-family: var(--FONT-FAMILY);
+  font-size: 0.8rem;
+}
+
+.dropdown-item:hover {
+  background-color: #94959670;
+}
+
+.dropdown-item.selected {
+  background-color: #7a49effd;
+  color: #fff;
+}
+
+/* CALENDAR-STYLES */
+.calendar-page--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(rgb(83, 208, 83), rgb(4, 53, 4));
+}
+
+.calendar-page--content {
+  position: relative;
+  display: grid;
+  grid-template: 1fr 1fr 1fr 1fr 1fr 1fr /  1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  background-image: url('./assets/images/BG7.jpg');
+  height: 100vh;
+  width: 950px;
+  padding-top: 2rem;
+}
+
+.calendar-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-left: 1rem;
+  color: whitesmoke;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* POPUP STYLES */
+.pop-up {
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 500px;
+  height: 400px;
+  transform: translateY(-50%);
+  background-color: white;
+  opacity: 0.7;
+  border-radius: 10px;
+}
