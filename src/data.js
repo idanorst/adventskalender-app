@@ -1,19 +1,19 @@
 export const data = [
     {
         id: 1, 
-        activity: 'A'
+        activity: 'Sende et julekort til en gammel venn.'
     },
     {
         id: 2, 
-        activity: 'B'
+        activity: 'Bake pepperkaker.'
     },
     {
         id: 3, 
-        activity: 'C'
+        activity: 'Gå en tur i det fine desemberværet.'
     },
     {
         id: 4, 
-        activity: 'D'
+        activity: 'Handle inn de siste julegavene.'
     },
     {
         id: 5, 

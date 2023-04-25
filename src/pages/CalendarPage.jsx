@@ -28,7 +28,7 @@ export default function CalenderPage() {
         <div className='calendar-page--container'>
             <div className='calendar-page--content'>
                 {showPopup && <div className='pop-up'>
-                    <h3>{date.id}. desember</h3>
+                    <h2>{date.id}. desember</h2>
                     <h4>Dagens aktvitet er: </h4>
                     <p>{date.activity}</p>
                 </div>}
