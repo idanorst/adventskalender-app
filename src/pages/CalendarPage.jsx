@@ -1,36 +1,69 @@
 import '../style.css'
 import React from 'react'
+import { useOutletContext } from 'react-router'
 import { data } from '../data'
 
 export default function CalenderPage() {
     const [showPopup, setShowPopup] = React.useState(false)
+    const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     const [date, setDate] = React.useState()
+    const [ day ] = useOutletContext()
+
+    console.log(day)
+    
 
     const calendarElements = data.map(e => {
         return (
-            <div 
+            <button 
                 id={e.id} 
                 key={e.id} 
                 className='calendar-box' 
                 onClick={() => calendarBoxClicked(e)}
                 activity={e.activity}
-            >{e.id}</div>
+                date={e.date}
+                icon={e.icon}
+            >{e.id}</button>
         )
     })
 
     function calendarBoxClicked(e) {
-        setShowPopup(true)
         setDate(e)
+        if (day === e.id) {
+            setShowPopup(true)
+            document.getElementById(e.id).style.backdropFilter = 'blur(5px)';
+            document.getElementById(e.id).innerHTML = ''
+        } else {
+            setShowWarningPopup(true)
+        }
     }
 
+    function closePopup() {
+        setShowPopup(false)
+        document.getElementById(date.id).innerHTML = date.icon
+    }
+
+    function closeWarningPopup() {
+        setShowWarningPopup(false)
+    }
     
     return (
         <div className='calendar-page--container'>
             <div className='calendar-page--content'>
                 {showPopup && <div className='pop-up'>
+                    <button className='close-button' onClick={closePopup}>
+                        &times;
+                    </button>
                     <h2>{date.id}. desember</h2>
                     <h4>Dagens aktvitet er: </h4>
                     <p>{date.activity}</p>
+                    <p className='icon'>{date.icon}</p>
+                </div>}
+                {showWarningPopup && <div className='warning-pop-up'>
+                    <button className='close-button' onClick={closeWarningPopup}>
+                        &times;
+                    </button>
+                    <h2>Å nei du, det er ikke {date.id}. desember idag.</h2>
+                    <p>🎅</p>
                 </div>}
                 {calendarElements}
                 {/* <div id='1' className='calendar-box' onClick={() => calendarBoxClicked(1)}>1</div>

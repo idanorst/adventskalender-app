@@ -19,11 +19,21 @@
 /* GENERAL STYLES */
 body {
   height: 100vh;
+  overflow-y: hidden;
 }
+/* 
+/* SCROLLBAR STYLES */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: darkgreen;
+} */
 
 
 /* LINK STYLES */
-a {
+/* Link {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,13 +44,23 @@ a {
   cursor: pointer;
   text-decoration: none;
   font-family: var(--FONT-FAMILY);
-}
+} */
 
-a:hover {
+/* a:hover {
   opacity: 0.9;
-}
+} */
 
 .link--create {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--FONT-FAMILY);
   margin-top: 3rem;
   margin-bottom: 1rem;
   background-color: rgb(179, 65, 57);
@@ -48,9 +68,19 @@ a:hover {
 }
 
 .link--visit {
-  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--FONT-FAMILY);
+  margin-top: 2rem;
   background-color: rgb(155, 68, 67);
-  color: var(--START-PAGE-BUTTON-COLOR); 
+  color: var(--START-PAGE-BUTTON-COLOR);
 }
 
 /* LAYOUT STYLES */
@@ -64,8 +94,6 @@ a:hover {
   background: radial-gradient(darkgreen, green);
   color: whitesmoke;
 }
-
-
 
 /* START PAGE STYLES */
 .start-page--container {
@@ -90,13 +118,13 @@ a:hover {
 }
 
 .start-page--title {
-  /* TODO: Fix the position of the title */
   color: var(--TITLE-COLOR);
   font-family: var(--FONT-FAMILY);
   text-align: center;
   letter-spacing: 2px;
   word-wrap: break-word;
   background-color: rgba(128, 128, 128, 0.571);
+  margin-bottom: 3rem;
 }
 
 /* SETTINGS PAGE STYLES */
@@ -199,24 +227,32 @@ a:hover {
   grid-gap: 2rem;
   justify-content: center;
   align-items: center;
-  background-image: url('./assets/images/BG7.jpg');
-  height: 100vh;
+  background-image: url('./assets/images/BG9.jpg');
+  background-position: center;
+  height: 480px;
   width: 950px;
-  padding-top: 2rem;
+  padding-top: 1rem;
+  margin: 1rem 0;
 }
 
 .calendar-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
-  width: 100px;
+  height: 90px;
+  width: 90px;
   border: 2px solid black;
   border-radius: 5px;
   margin-left: 1rem;
   color: whitesmoke;
+  background-color: inherit;
+  font-family: var(--FONT-FAMILY);
   font-size: 2rem;
   cursor: pointer;
+}
+
+.calendar-box:target{
+  background-color: grey;
 }
 
 /* POPUP STYLES */
@@ -236,6 +272,7 @@ a:hover {
   opacity: 0.9;
   border-radius: 10px;
   font-family: var(--FONT-FAMILY);
+  z-index: 99;
 }
 
 .pop-up h2 {
@@ -252,3 +289,47 @@ a:hover {
 .pop-up p {
   font-size: 1.2rem;
 }
+
+.pop-up .icon {
+  margin-top: 1rem;
+  font-size: 5rem;
+}
+
+.close-button {
+  position: absolute;
+  right: 20px;
+  border: none;
+  background-color: inherit;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.warning-pop-up {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 500px;
+  height: 400px;
+  transform: translateY(-50%);
+  background-color: white;
+  opacity: 0.9;
+  border-radius: 10px;
+  font-family: var(--FONT-FAMILY);
+  z-index: 99;
+}
+
+.warning-pop-up h2 {
+  margin-top: 6rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.warning-pop-up p {
+  font-size: 6rem;
+}
+

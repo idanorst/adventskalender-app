@@ -1,19 +1,23 @@
 export const data = [
     {
         id: 1, 
-        activity: 'Sende et julekort til en gammel venn.'
+        activity: 'Sende et julekort til en gammel venn.',
+        icon: '✉️'
     },
     {
         id: 2, 
-        activity: 'Bake pepperkaker.'
+        activity: 'Bake pepperkaker.',
+        icon: '👩‍🍳'
     },
     {
         id: 3, 
-        activity: 'Gå en tur i det fine desemberværet.'
+        activity: 'Gå en tur i det fine desemberværet.',
+        icon: '🌞'
     },
     {
         id: 4, 
-        activity: 'Handle inn de siste julegavene.'
+        activity: 'Handle inn de siste julegavene.',
+        icon: '🛍️'
     },
     {
         id: 5, 

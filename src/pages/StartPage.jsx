@@ -8,11 +8,11 @@ export default function StartPage() {
         <div className='start-page--container'>
             <div className='start-page--info'>
                 <h1 className='start-page--title'>Den Digitale Adventskalenderen</h1>
-                <Link 
+                {/* <Link 
                     to='../createCalendar'
                     relative='path'
                     className='link--create'
-                >Lag kalender</Link>
+                >Lag kalender</Link> */}
                 <Link 
                     to='../calendar'
                     relative='path'
