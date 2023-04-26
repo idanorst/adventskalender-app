@@ -21,7 +21,7 @@ body {
   height: 100vh;
   overflow-y: hidden;
 }
-/* 
+
 /* SCROLLBAR STYLES */
 ::-webkit-scrollbar {
   width: 10px;
@@ -115,7 +115,6 @@ body {
 }
 
 /* SETTINGS PAGE STYLES */
-
 .settings-page--title {
   background-color: var(--BG-COLOR);
   font-family: var(--FONT-FAMILY);
