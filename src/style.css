@@ -33,23 +33,6 @@ body {
 
 
 /* LINK STYLES */
-/* Link {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 150px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-family: var(--FONT-FAMILY);
-} */
-
-/* a:hover {
-  opacity: 0.9;
-} */
-
 .link--create {
   display: flex;
   justify-content: center;
@@ -81,6 +64,10 @@ body {
   margin-top: 2rem;
   background-color: rgb(155, 68, 67);
   color: var(--START-PAGE-BUTTON-COLOR);
+}
+
+.link--visit:hover {
+  opacity: 0.9;
 }
 
 /* LAYOUT STYLES */
@@ -253,6 +240,10 @@ body {
 
 .calendar-box:target{
   background-color: grey;
+}
+
+.calendar-box:hover {
+  backdrop-filter: blur(5px);
 }
 
 /* POPUP STYLES */
