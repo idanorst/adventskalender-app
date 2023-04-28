@@ -1,102 +1,98 @@
 export const data = [
-    {
-        id: 1, 
+    { 
         activity: 'Sende et julekort til en gammel venn.',
         icon: '✉️'
     },
-    {
-        id: 2, 
+    { 
         activity: 'Bake pepperkaker.',
         icon: '👩‍🍳'
     },
-    {
-        id: 3, 
+    { 
         activity: 'Gå en tur i det fine desemberværet.',
         icon: '🌞'
     },
-    {
-        id: 4, 
+    { 
         activity: 'Handle inn de siste julegavene.',
         icon: '🛍️'
     },
-    {
-        id: 5, 
-        activity: 'E'
+    { 
+        activity: 'E',
+        icon: ''
     },
     {
-        id: 6, 
-        activity: 'F'
+        activity: 'F',
+        icon: ''
     },
     {
-        id: 7, 
-        activity: 'G'
+        activity: 'G',
+        icon: ''
+    },
+    { 
+        activity: 'H',
+        icon: ''
+    },
+    { 
+        activity: 'I',
+        icon: ''
+    },
+    { 
+        activity: 'J',
+        icon: ''
+    },
+    { 
+        activity: 'K',
+        icon: ''
     },
     {
-        id: 8, 
-        activity: 'H'
+        activity: 'L',
+        icon: ''
+    },
+    { 
+        activity: 'M',
+        icon: ''
+    },
+    { 
+        activity: 'N',
+        icon: ''
     },
     {
-        id: 9, 
-        activity: 'I'
+        activity: 'O',
+        icon: ''
     },
     {
-        id: 10, 
-        activity: 'J'
+        activity: 'P',
+        icon: ''
     },
     {
-        id: 11, 
-        activity: 'K'
+        activity: 'Q',
+        icon: ''
+    },
+    { 
+        activity: 'R',
+        icon: ''
     },
     {
-        id: 12, 
-        activity: 'L'
+        activity: 'S',
+        icon: ''
     },
     {
-        id: 13, 
-        activity: 'M'
+        activity: 'T',
+        icon: ''
     },
     {
-        id: 14, 
-        activity: 'N'
+        activity: 'U',
+        icon: ''
     },
-    {
-        id: 15, 
-        activity: 'O'
+    { 
+        activity: 'V',
+        icon: ''
     },
-    {
-        id: 16, 
-        activity: 'P'
+    { 
+        activity: 'W',
+        icon: ''
     },
-    {
-        id: 17, 
-        activity: 'Q'
-    },
-    {
-        id: 18, 
-        activity: 'R'
-    },
-    {
-        id: 19, 
-        activity: 'S'
-    },
-    {
-        id: 20, 
-        activity: 'T'
-    },
-    {
-        id: 21, 
-        activity: 'U'
-    },
-    {
-        id: 22, 
-        activity: 'V'
-    },
-    {
-        id: 23, 
-        activity: 'W'
-    },
-    {
-        id: 24, 
-        activity: 'X'
+    { 
+        activity: 'X',
+        icon: ''
     }
 ]

@@ -8,7 +8,7 @@ export default function Layout() {
 
     const date = new Date()
     /* const day = date.getDate() */
-    const day = 2
+    const day = 15
     const month = 11
     const stringifiedMonth = months[month]
 
