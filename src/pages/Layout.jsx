@@ -1,6 +1,9 @@
 import React from 'react'
 import '../style.css'
-import { Outlet } from 'react-router-dom'
+import { 
+    Outlet,
+    Link
+} from 'react-router-dom'
 
 export default function Layout() {
 
@@ -18,8 +21,9 @@ export default function Layout() {
     let daysUntilChristmas = Math.ceil(difference / (1000 * 3600 * 24))
 
     return (
-        <div>
+        <div className='container'>
             <div className='top-row'>
+                <Link path='realtive' to='..' className='home-link'>🏠</Link>
                 <h2>🎄🎄</h2>
                 <h2>{day} {stringifiedMonth}</h2>
                 <h2>🎄🎅🎄</h2>

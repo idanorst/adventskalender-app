@@ -1,40 +1,153 @@
 import '../style.css'
 import React from 'react'
-import { useOutletContext } from 'react-router'
+import { 
+    useOutletContext,
+    useLocation
+} from 'react-router-dom'
 import { data } from '../data'
 import CalendarBox from '../components/CalendarBox'
 
-export default function CalenderPage() {
+export default function CalenderPage(props) {
+    const [calendarData, setCalendarData] = React.useState()
+    const [idList, setIdList] = React.useState(JSON.parse(localStorage.getItem('idList')) || [])
     const [showPopup, setShowPopup] = React.useState(false)
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     const [date, setDate] = React.useState()
-    const [ day ] = useOutletContext()
     const [wrongDate, setWrongDate] = React.useState()
 
-    /* console.log(date) */
-    
-    const randomOrder = [23, 7, 12, 8, 4, 10, 24, 16, 22, 3, 9, 6, 14, 19, 1, 18, 15, 20, 11, 17, 13, 2, 5, 21]
+    const [ day ] = useOutletContext()
+    const location = useLocation()
+    const calendarCreated = localStorage.getItem('calendarCreated')
 
-    const calendarElements = []
-    for (let i = 0; i < randomOrder.length; i++) {
+    var randomNumbers = [
+        60, 10, 64, 30, 22, 51, 1, 8, 39, 36, 62, 50, 18, 25, 
+        26, 11, 31, 2, 43, 14, 55, 66, 59, 32, 54, 23, 5, 20, 
+        17, 49, 16, 0, 48, 29, 57, 65, 41, 61, 42, 53, 7, 13, 
+        12, 19, 3, 37, 35, 15, 38, 52, 40, 34, 47, 44, 46, 28,
+        63, 58, 27, 4, 24, 56, 45, 9, 21, 6, 33]
+
+    React.useEffect(() => {
+        if (!calendarData && !calendarCreated) {
+            console.log('Creating...')
+            setCalendarData(createNewCalendarElements())
+            localStorage.setItem('calendarCreated', true) 
+        } else if (calendarCreated) {
+            console.log(localStorage.getItem('idList'))
+            setCalendarData(restoreCalendarData())
+            console.log('Restoring...')
+        } 
+    }, [])
+    
+
+    function restoreCalendarData() {
+        const calendarElements = []
+        console.log(idList.length)
+        for (let i = 0; i < idList.length; i++) {
+            calendarElements.push(
+                <CalendarBox 
+                    id={idList[i]} 
+                    key={i}
+                    date={i + 1}
+                    data={data[idList[i]]}
+                    onClick={calendarBoxClicked} 
+                />
+            )
+        }
+        return calendarElements
+    }
+
+    function createNewCalendarElements() {
+        const calendarElements = []
+        if (location.state?.search === '?familieaktiviteter') {
+            var count = 0
+            for (let i = 0; i < randomNumbers.length; i++) {
+                if (data[randomNumbers[i]].category.includes('Familieaktivitet') && count < 24) {
+                    count += 1
+                    setIdList(prevList => [...prevList, randomNumbers[i]])
+                    console.log(data[randomNumbers[i]])
+                    calendarElements.push(
+                        <CalendarBox 
+                            id={randomNumbers[i]} 
+                            key={randomNumbers[i]}
+                            date={count}
+                            data={data[randomNumbers[i]]}
+                            onClick={calendarBoxClicked} 
+                        />
+                    )
+                }
+            }
+        } else if (location.state?.search === '?fysisk') {
+            var count = 0
+            for (let i = 0; i < randomNumbers.length; i++) {
+                if (data[randomNumbers[i]].category.includes('Fysisk aktivitet') && count < 24) {
+                    count += 1
+                    setIdList(prevList => [...prevList, randomNumbers[i]])
+                    calendarElements.push(
+                        <CalendarBox 
+                            id={randomNumbers[i]} 
+                            key={i}
+                            date={count}
+                            data={data[randomNumbers[i]]}
+                            onClick={calendarBoxClicked} 
+                        />
+                    )
+                }
+            }
+        } else if (location.state?.search === '?kulinarisk') {
+            var count = 0
+            for (let i = 0; i < randomNumbers.length; i++) {
+                if (data[randomNumbers[i]].category.includes('Kulinarisk aktivitet') && count < 24) {
+                    count += 1
+                    setIdList(prevList => [...prevList, randomNumbers[i]])
+                    calendarElements.push(
+                        <CalendarBox 
+                            id={randomNumbers[i]} 
+                            key={i}
+                            date={count}
+                            data={data[randomNumbers[i]]}
+                            onClick={calendarBoxClicked} 
+                        />
+                    )
+                }
+            }
+        } else {
+            for (let i = 0; i < 24; i++) {
+                setIdList(prevList => [...prevList, randomNumbers[i]])
+                calendarElements.push(
+                    <CalendarBox 
+                        id={randomNumbers[i]} 
+                        key={i}
+                        date={i + 1}
+                        data={data[randomNumbers[i]]}
+                        onClick={calendarBoxClicked} 
+                    />
+                )
+            }
+        }
+        return calendarElements
+    }
+
+    localStorage.setItem('idList', JSON.stringify(idList))
+        
+    /* for (let i = 0; i < 24; i++) {
         calendarElements.push(
             <CalendarBox 
-                id={randomOrder[i]} 
+                id={randomNumbers[i]} 
                 key={i}
-                date={randomOrder[i]}
-                data={data[randomOrder[i]]}
+                date={i + 1}
+                data={data[randomNumbers[i]]}
                 onClick={calendarBoxClicked} 
             />
         )
-    }
+    } */
 
-    React.useEffect(() => {
-        for (let i = 0; i < calendarElements.length; i++) {
-            if (calendarElements[i].props.id === day) {
-                setDate(calendarElements[i].props)
+    /* React.useEffect(() => {
+        for (let i = 0; i < calendarData.length; i++) {
+            if (calendarData[i].props.date === day) {
+                setDate(calendarData[i].props)
             }
         }
-    }, [])
+    }, []) */
 
   /*   if (typeof date === 'undefined' || date.id !== day ) {
         for (let i = 0; i < calendarElements.length; i++) {
@@ -86,15 +199,15 @@ export default function CalenderPage() {
     console.log(calendarElements)  */
 
     function calendarBoxClicked(date) {
-        console.log(day, date)
+        /* console.log(day, date) */
         if (day === date) {
-            for (let i = 0; i < calendarElements.length; i++){
-                if (calendarElements[i].props.date === date){
-                    console.log(calendarElements[i])
+            for (let i = 0; i < calendarData.length; i++){
+                if (calendarData[i].props.date === date){
+                    /* console.log(calendarElements[i]) */
                     localStorage.setItem(date, true)
                     setShowPopup(true)
-                    document.getElementById(calendarElements[i].props.id).style.backdropFilter = 'blur(5px)';
-                    document.getElementById(calendarElements[i].props.id).innerHTML = ''
+                    document.getElementById(calendarData[i].props.id).style.backdropFilter = 'blur(5px)';
+                    document.getElementById(calendarData[i].props.id).innerHTML = ''
                 }
             }
         } else {
@@ -122,6 +235,7 @@ export default function CalenderPage() {
         setShowWarningPopup(false)
     }
 
+
     return (
         <div className='calendar-page--container'>
             <div className='calendar-page--content'>
@@ -141,7 +255,7 @@ export default function CalenderPage() {
                     <h2>Å nei du, det er ikke {wrongDate}. desember idag.</h2>
                     <p>🎅</p>
                 </div>}
-                {calendarElements}
+                {calendarData}
             </div>
         </div>
     )

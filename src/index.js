@@ -16,6 +16,7 @@ import SettingsPage from './pages/SettingsPage'
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />} >
       <Route index element={<StartPage />}/>
+      <Route path='createCalendar' element={<SettingsPage />}/>
       <Route path='calendar' element={<CalenderPage />}/>
   </Route>
 ))
