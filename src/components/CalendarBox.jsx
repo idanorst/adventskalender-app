@@ -3,7 +3,9 @@ import '../style.css'
 
 export default function CalendarBox(props) {
 
-    const opened = localStorage.getItem(`${props.id}`)
+    console.log(props.date)
+
+    const opened = localStorage.getItem(`${props.date}`)
 
     if (!opened) {
         return (
@@ -20,7 +22,7 @@ export default function CalendarBox(props) {
             <button 
                 id={props.id} 
                 key={props.id} 
-                className='calendar-box'
+                className='calendar-box opened-calendar-box'
             >{props.data.icon}</button>
         )
     } 

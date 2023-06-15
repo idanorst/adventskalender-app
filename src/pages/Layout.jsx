@@ -10,8 +10,8 @@ export default function Layout() {
     const months = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember']
 
     const date = new Date()
-    /* const day = date.getDate() */
-    const day = 15
+    const day = date.getDate()
+    /* const day = 8 */
     const month = 11
     const stringifiedMonth = months[month]
 
