@@ -21,24 +21,18 @@ export default function CalenderPage() {
     const [date, setDate] = React.useState()
     const location = useLocation()
     const [calendarData, setCalendarData] = React.useState(setData)
+    const [earlyDate, setEarlyDate] = React.useState()
     
+    var activityChecked = false
+    var earlyActivityChecked = false
+
+    /* console.log(earlyDate.props.date) */
     const [showPopup, setShowPopup] = React.useState(false)
+    const [showEarlyPopup, setShowEarlyPopup] = React.useState(false)
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     
     const [wrongDate, setWrongDate] = React.useState()
 
-    
-
-    /* React.useEffect(() => {
-        if (!calendarData && !calendarCreated) {
-            console.log('Creating...')
-            createNewCalendarElements()
-            localStorage.setItem('calendarCreated', true) 
-        } else if (calendarCreated) {
-            restoreCalendarData()
-            console.log('Restoring...')
-        } 
-    }, []) */
 
     function setData() {
         var calendarElements = []
@@ -155,8 +149,18 @@ export default function CalenderPage() {
         if (day === date) {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
-                    localStorage.setItem(date, true)
                     setShowPopup(true)
+                    document.getElementById(calendarData[i].props.id).style.backdropFilter = 'blur(5px)';
+                    document.getElementById(calendarData[i].props.id).innerHTML = ''
+                }
+            }
+        } else if (date < day) {
+            for (let i = 0; i < calendarData.length; i++){
+                if (calendarData[i].props.date === date){
+                    /* localStorage.setItem(date, true) */
+                    /* setShowPopup(true) */
+                    setEarlyDate(calendarData[i])
+                    setShowEarlyPopup(true)
                     document.getElementById(calendarData[i].props.id).style.backdropFilter = 'blur(5px)';
                     document.getElementById(calendarData[i].props.id).innerHTML = ''
                 }
@@ -169,14 +173,35 @@ export default function CalenderPage() {
 
     function closePopup() {
         setShowPopup(false)
-        document.getElementById(date.props.id).innerHTML = date.props.data.icon
+        if (activityChecked) {
+            document.getElementById(date.props.id).innerHTML = date.props.data.icon
+        } else {
+            document.getElementById(date.props.id).innerHTML = date.props.date
+        }
+    }
+
+    function closeEarlyPopup() {
+        setShowEarlyPopup(false)
+        if (earlyActivityChecked) {
+            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.data.icon
+        } else {
+            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
+        }
     }
 
     function closeWarningPopup() {
         setShowWarningPopup(false)
     }
 
-    console.log(date)
+    function setTodaysDateChecked() {
+        localStorage.setItem(date.props.date, true)
+        activityChecked = true
+    }
+
+    function setEarlyDateChecked() {
+        localStorage.setItem(earlyDate.props.date, true)
+        earlyActivityChecked = true
+    }
 
 
     return (
@@ -190,6 +215,37 @@ export default function CalenderPage() {
                     <h4>Dagens aktvitet er: </h4>
                     <p>{date.props.data.activity}</p>
                     <p className='icon'>{date.props.data.icon}</p>
+                    <div className='checkbox-container'>
+                        <p>Aktivitet utført: </p>
+                        {activityChecked ? 
+                            <input 
+                                type='checkbox' 
+                                checked='checked'></input>
+                            :
+                            <input 
+                                type='checkbox'
+                                onChange={setTodaysDateChecked}></input>}
+                    </div>
+                </div>}
+                {showEarlyPopup && <div className='pop-up'>
+                    <button className='close-button' onClick={closeEarlyPopup}>
+                        &times;
+                    </button>
+                    <h2>{earlyDate.props.date}. desember</h2>
+                    <h4>Dagens aktvitet er: </h4>
+                    <p>{earlyDate.props.data.activity}</p>
+                    <p className='icon'>{earlyDate.props.data.icon}</p>
+                    <div className='checkbox-container'>
+                        <p>Aktivitet utført: </p>
+                        {earlyActivityChecked ? 
+                            <input 
+                                type='checkbox' 
+                                checked='checked'></input>
+                            :
+                            <input 
+                                type='checkbox'
+                                onChange={setEarlyDateChecked}></input>}
+                    </div>
                 </div>}
                 {showWarningPopup && <div className='warning-pop-up'>
                     <button className='close-button' onClick={closeWarningPopup}>

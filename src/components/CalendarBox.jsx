@@ -3,7 +3,6 @@ import '../style.css'
 
 export default function CalendarBox(props) {
 
-    console.log(props.date)
 
     const opened = localStorage.getItem(`${props.date}`)
 
