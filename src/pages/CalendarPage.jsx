@@ -13,7 +13,17 @@ export default function CalenderPage() {
         26, 11, 31, 2, 43, 14, 55, 66, 59, 32, 54, 23, 5, 20, 
         17, 49, 16, 0, 48, 29, 57, 65, 41, 61, 42, 53, 7, 13, 
         12, 19, 3, 37, 35, 15, 38, 52, 40, 34, 47, 44, 46, 28,
-        63, 58, 27, 4, 24, 56, 45, 9, 21, 6, 33]
+        63, 58, 27, 4, 24, 56, 45, 9, 21, 6, 33
+    ]
+
+    /* var activityChecked = {
+        1: false, 2: false, 3: false, 4: false, 5: false,
+        6: false, 7: false, 8: false, 9: false, 10: false, 
+        11: false, 12: false, 13: false, 14: false, 
+        15: false, 16: false, 17: false, 18: false, 
+        19: false, 20: false, 21: false, 22: false, 
+        23: false, 24: false
+    } */
     
     const calendarCreated = localStorage.getItem('calendarCreated')
     const [idList, setIdList] = React.useState(JSON.parse(localStorage.getItem('idList')) || [])
@@ -23,8 +33,8 @@ export default function CalenderPage() {
     const [calendarData, setCalendarData] = React.useState(setData)
     const [earlyDate, setEarlyDate] = React.useState()
     
-    var activityChecked = false
-    var earlyActivityChecked = false
+    /* var activityChecked = false
+    var earlyActivityChecked = false */
 
     /* console.log(earlyDate.props.date) */
     const [showPopup, setShowPopup] = React.useState(false)
@@ -173,7 +183,7 @@ export default function CalenderPage() {
 
     function closePopup() {
         setShowPopup(false)
-        if (activityChecked) {
+        if (localStorage.getItem(date.props.date)) {
             document.getElementById(date.props.id).innerHTML = date.props.data.icon
         } else {
             document.getElementById(date.props.id).innerHTML = date.props.date
@@ -182,7 +192,7 @@ export default function CalenderPage() {
 
     function closeEarlyPopup() {
         setShowEarlyPopup(false)
-        if (earlyActivityChecked) {
+        if (localStorage.getItem(earlyDate.props.date)) {
             document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.data.icon
         } else {
             document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
@@ -195,14 +205,11 @@ export default function CalenderPage() {
 
     function setTodaysDateChecked() {
         localStorage.setItem(date.props.date, true)
-        activityChecked = true
     }
 
     function setEarlyDateChecked() {
         localStorage.setItem(earlyDate.props.date, true)
-        earlyActivityChecked = true
     }
-
 
     return (
         <div className='calendar-page--container'>
@@ -217,7 +224,7 @@ export default function CalenderPage() {
                     <p className='icon'>{date.props.data.icon}</p>
                     <div className='checkbox-container'>
                         <p>Aktivitet utført: </p>
-                        {activityChecked ? 
+                        {localStorage.getItem(date.props.date) ? 
                             <input 
                                 type='checkbox' 
                                 checked='checked'></input>
@@ -237,10 +244,11 @@ export default function CalenderPage() {
                     <p className='icon'>{earlyDate.props.data.icon}</p>
                     <div className='checkbox-container'>
                         <p>Aktivitet utført: </p>
-                        {earlyActivityChecked ? 
+                        {localStorage.getItem(earlyDate.props.date) ? 
                             <input 
                                 type='checkbox' 
-                                checked='checked'></input>
+                                checked='checked'
+                            ></input>
                             :
                             <input 
                                 type='checkbox'
