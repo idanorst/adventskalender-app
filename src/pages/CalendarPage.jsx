@@ -28,10 +28,12 @@ export default function CalenderPage() {
     const calendarCreated = localStorage.getItem('calendarCreated')
     const [idList, setIdList] = React.useState(JSON.parse(localStorage.getItem('idList')) || [])
     const [ day ] = useOutletContext()
+    /* const [boxClicked, setBoxClicked] = React.useState(false) */
     const [date, setDate] = React.useState()
     const location = useLocation()
     const [calendarData, setCalendarData] = React.useState(setData)
     const [earlyDate, setEarlyDate] = React.useState()
+    
     
     /* var activityChecked = false
     var earlyActivityChecked = false */
@@ -42,7 +44,6 @@ export default function CalenderPage() {
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     
     const [wrongDate, setWrongDate] = React.useState()
-
 
     function setData() {
         var calendarElements = []
@@ -74,7 +75,8 @@ export default function CalenderPage() {
                     key={i}
                     date={i + 1}
                     data={data[idList[i]]}
-                    onClick={calendarBoxClicked} 
+                    onClick={calendarBoxClicked}
+                    /* boxClicked={boxClicked}  */
                 />
             )
         }
@@ -156,11 +158,13 @@ export default function CalenderPage() {
     localStorage.setItem('idList', JSON.stringify(idList))
         
     function calendarBoxClicked(date) {
+        console.log(document.getElementById('overlay'))
+        /* setBoxClicked(true) */
         if (day === date) {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
                     setShowPopup(true)
-                    document.getElementById(calendarData[i].props.id).style.backdropFilter = 'blur(5px)';
+                    /* document.getElementById(calendarData[i].props.id).style.backdropFilter = 'blur(5px)'; */
                     document.getElementById(calendarData[i].props.id).innerHTML = ''
                 }
             }
@@ -171,7 +175,7 @@ export default function CalenderPage() {
                     /* setShowPopup(true) */
                     setEarlyDate(calendarData[i])
                     setShowEarlyPopup(true)
-                    document.getElementById(calendarData[i].props.id).style.backdropFilter = 'blur(5px)';
+                    /* document.getElementById(calendarData[i].props.id).style.backdropFilter = 'blur(5px)'; */
                     document.getElementById(calendarData[i].props.id).innerHTML = ''
                 }
             }
@@ -183,8 +187,10 @@ export default function CalenderPage() {
 
     function closePopup() {
         setShowPopup(false)
+        /* setBoxClicked(false) */
         if (localStorage.getItem(date.props.date)) {
             document.getElementById(date.props.id).innerHTML = date.props.data.icon
+            document.getElementById(date.props.id).style.backdropFilter = 'blur(5px)';
         } else {
             document.getElementById(date.props.id).innerHTML = date.props.date
         }
@@ -194,6 +200,7 @@ export default function CalenderPage() {
         setShowEarlyPopup(false)
         if (localStorage.getItem(earlyDate.props.date)) {
             document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.data.icon
+            document.getElementById(earlyDate.props.id).style.backdropFilter = 'blur(5px)';
         } else {
             document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
         }
@@ -204,63 +211,92 @@ export default function CalenderPage() {
     }
 
     function setTodaysDateChecked() {
-        localStorage.setItem(date.props.date, true)
+        if (localStorage.getItem(date.props.date)){
+            localStorage.removeItem(date.props.date)
+        } else {
+            localStorage.setItem(date.props.date, true)
+        }
+        
     }
 
     function setEarlyDateChecked() {
-        localStorage.setItem(earlyDate.props.date, true)
+        if (localStorage.getItem(earlyDate.props.date)){
+            console.log('Checked')
+            localStorage.removeItem(earlyDate.props.date)
+        } else {
+            localStorage.setItem(earlyDate.props.date, true)
+        }
+        
+    }
+
+    function checkIfChecked(date) {
+        if (localStorage.getItem(date)){
+            return 'checked'
+        } else {
+            return ''
+        }
     }
 
     return (
         <div className='calendar-page--container'>
             <div className='calendar-page--content'>
-                {showPopup && <div className='pop-up'>
-                    <button className='close-button' onClick={closePopup}>
-                        &times;
-                    </button>
-                    <h2>{date.props.date}. desember</h2>
-                    <h4>Dagens aktvitet er: </h4>
-                    <p>{date.props.data.activity}</p>
-                    <p className='icon'>{date.props.data.icon}</p>
-                    <div className='checkbox-container'>
-                        <p>Aktivitet utført: </p>
-                        {localStorage.getItem(date.props.date) ? 
-                            <input 
-                                type='checkbox' 
-                                checked='checked'></input>
-                            :
-                            <input 
-                                type='checkbox'
-                                onChange={setTodaysDateChecked}></input>}
+                {/* {(showPopup || showWarningPopup) && <div className='overlay'></div>} */}
+                {showPopup && <div className='pop-up-container'>
+                    <div className='pop-up'>
+                        <button className='close-button' onClick={closePopup}>
+                            &times;
+                        </button>
+                        <h2>{(date.props.date === 24) ? 'Juleaften' : `${date.props.date}. desember`}</h2>
+                        <h4>Dagens aktvitet er: </h4>
+                        <p className='pop-up--activity'>{date.props.data.activity}</p>
+                        <p className='icon'>{date.props.data.icon}</p>
+                        <div className='checkbox-container'>
+                            <p>Aktivitet utført: </p>
+                            {localStorage.getItem(date.props.date) ? 
+                                <input 
+                                    type='checkbox' 
+                                    checked={checkIfChecked(date.props.date)}
+                                    onChange={setTodaysDateChecked}
+                                ></input>
+                                :
+                                <input 
+                                    type='checkbox'
+                                    onChange={setTodaysDateChecked}></input>}
+                        </div>
                     </div>
                 </div>}
-                {showEarlyPopup && <div className='pop-up'>
-                    <button className='close-button' onClick={closeEarlyPopup}>
-                        &times;
-                    </button>
-                    <h2>{earlyDate.props.date}. desember</h2>
-                    <h4>Dagens aktvitet er: </h4>
-                    <p>{earlyDate.props.data.activity}</p>
-                    <p className='icon'>{earlyDate.props.data.icon}</p>
-                    <div className='checkbox-container'>
-                        <p>Aktivitet utført: </p>
-                        {localStorage.getItem(earlyDate.props.date) ? 
-                            <input 
-                                type='checkbox' 
-                                checked='checked'
-                            ></input>
-                            :
-                            <input 
-                                type='checkbox'
-                                onChange={setEarlyDateChecked}></input>}
+                {showEarlyPopup && <div className='pop-up-container'>
+                    <div className='pop-up'>
+                        <button className='close-button' onClick={closeEarlyPopup}>
+                            &times;
+                        </button>
+                        <h2>{(earlyDate.props.date === 24) ? 'Juleaften' : `${earlyDate.props.date}. desember`}</h2>
+                        <h4>Dagens aktvitet er: </h4>
+                        <p className='pop-up--activity'>{earlyDate.props.data.activity}</p>
+                        <p className='icon'>{earlyDate.props.data.icon}</p>
+                        <div className='checkbox-container'>
+                            <p>Aktivitet utført: </p>
+                            {localStorage.getItem(earlyDate.props.date) ? 
+                                <input 
+                                    type='checkbox' 
+                                    checked={checkIfChecked(earlyDate.props.date)} 
+                                    onChange={setEarlyDateChecked}
+                                ></input>
+                                :
+                                <input 
+                                    type='checkbox'
+                                    onChange={setEarlyDateChecked}></input>}
+                        </div>
                     </div>
                 </div>}
-                {showWarningPopup && <div className='warning-pop-up'>
-                    <button className='close-button' onClick={closeWarningPopup}>
-                        &times;
-                    </button>
-                    <h2>Å nei du, det er ikke {wrongDate}. desember idag.</h2>
-                    <p>🎅</p>
+                {showWarningPopup && <div className='pop-up-container'>
+                    <div className='pop-up warning-pop-up'>
+                        <button className='close-button' onClick={closeWarningPopup}>
+                            &times;
+                        </button>
+                        <h2>Å nei du, det er ikke {wrongDate === 24 ? 'Juleaften' : `${wrongDate}. desember`} idag.</h2>
+                        <p className='warning-icon'>🎅</p>
+                    </div>
                 </div>}
                 {calendarData}
             </div>

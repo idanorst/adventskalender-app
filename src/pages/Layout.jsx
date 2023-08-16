@@ -11,11 +11,13 @@ export default function Layout() {
 
     const date = new Date()
     const day = date.getDate()
-    /* const day = 8 */
+    /* const day = 24 */
     const month = 11
     const stringifiedMonth = months[month]
 
     const christmas = new Date('12/24/2023')
+
+    const windowWidth = window.innerWidth
 
     let difference =  christmas.getTime() - date.getTime()
     let daysUntilChristmas = Math.ceil(difference / (1000 * 3600 * 24))
@@ -24,11 +26,14 @@ export default function Layout() {
         <div className='container'>
             <div className='top-row'>
                 <Link path='realtive' to='..' className='home-link'>🏠</Link>
-                <h2>🎄🎄</h2>
-                <h2>{day} {stringifiedMonth}</h2>
-                <h2>🎄🎅🎄</h2>
+                {(windowWidth > 410 && windowWidth < 1000) && <h2>🎄</h2>}
+                {windowWidth > 1000 && <h2>🎄🎄</h2>}
+                <h2>{(day === 24) ? 'Juleaften' : `${day} ${stringifiedMonth}`}</h2>
+                {windowWidth >= 375 && <h2>🎄🎅🎄</h2>}
+                {windowWidth < 375 && <h2>🎄🎄</h2>}
                 <h2>Dager igjen til jul: {daysUntilChristmas} </h2>
-                <h2>🎄🎄</h2>
+                {(windowWidth > 410 && windowWidth < 1000) && <h2>🎄</h2>}
+                {windowWidth > 1000 && <h2>🎄🎄</h2>}
             </div>
             <Outlet context ={[day]}/>
         </div>
