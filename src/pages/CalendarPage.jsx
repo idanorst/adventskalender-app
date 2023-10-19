@@ -27,6 +27,7 @@ export default function CalenderPage() {
     } */
     
     const calendarCreated = localStorage.getItem('calendarCreated')
+    const customMadeData= JSON.parse(localStorage.getItem('custom-data')) || []
     const [idList, setIdList] = React.useState(JSON.parse(localStorage.getItem('idList')) || [])
     const [ day ] = useOutletContext()
     /* const [boxClicked, setBoxClicked] = React.useState(false) */
@@ -69,17 +70,32 @@ export default function CalenderPage() {
     
     function restoreCalendarData() {
         const calendarElements = []
-        for (let i = 0; i < idList.length; i++) {
-            calendarElements.push(
-                <CalendarBox 
-                    id={idList[i]} 
-                    key={i}
-                    date={i + 1}
-                    data={data[idList[i]]}
-                    onClick={calendarBoxClicked}
-                    /* boxClicked={boxClicked}  */
-                />
-            )
+        if (customMadeData != []) {
+            for (let i = 0; i < idList.length; i++) {
+                calendarElements.push(
+                    <CalendarBox 
+                        id={customMadeData[i].id} 
+                        key={customMadeData[i].id}
+                        date={customMadeData[i].id}
+                        data={customMadeData[i]}
+                        onClick={calendarBoxClicked}
+                        /* boxClicked={boxClicked}  */
+                    />
+                )
+            }
+        } else {
+            for (let i = 0; i < idList.length; i++) {
+                calendarElements.push(
+                    <CalendarBox 
+                        id={idList[i]} 
+                        key={i}
+                        date={i + 1}
+                        data={data[idList[i]]}
+                        onClick={calendarBoxClicked}
+                        /* boxClicked={boxClicked}  */
+                    />
+                )
+            }
         }
         setTodaysDate(calendarElements)
         return calendarElements
@@ -87,8 +103,19 @@ export default function CalenderPage() {
 
     function createNewCalendarElements() {
         const calendarElements = []
-        if (location.state?.search === '?customeMade'){
-            console.log("Custom Made")
+        if (location.state?.search === '?customMade'){
+            for (let i = 0; i < customMadeData.length; i++) {
+                setIdList(prevList => [...prevList, customMadeData[i].id])
+                calendarElements.push(
+                    <CalendarBox 
+                        id={customMadeData[i].id} 
+                        key={customMadeData[i].id}
+                        date={customMadeData[i].id}
+                        data={customMadeData[i]}
+                        onClick={calendarBoxClicked} 
+                    />
+                )
+            }
         } else {
             if (location.state?.search === '?familieaktiviteter') {
                 var count = 0

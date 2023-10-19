@@ -23,6 +23,7 @@ export default function SettingsPage() {
             setDateList(prevList => [...prevList, customMadeData[i].id])
         }
     }
+
     const icons = [
         '📮','👩‍🍳','🌞','🛍️','🖼️','🎶','✉️',  '✂️','🎁','🤶','🎞️','🔥','🍫','🌲','🤝', '🎲','🎄','💡','🍞','🪪','🎤','🥄','🍽️', '🧊','❄️','💸','🍬','❓','🥶','🏃‍♂️','🏋️','🛷','🧘','⛷️','💪','🦵','🚶','🏃‍♀️','🧗','😅','🥵','🧑‍🤝‍🧑','🐑','🐟','🥨','🥮','🍚','🎀','🍴','💕','☕','🫖','💝','🥣','🐖','🍮','📺'
     ]
@@ -55,6 +56,12 @@ export default function SettingsPage() {
             }
         }
     }})
+
+    React.useEffect(() => {
+        if (customMadeData.length === 24) {
+            setCalendarComplete(true)
+        }
+    })
 
     const iconElements = []
     for (let i = 0; i < icons.length; i++) {
@@ -89,6 +96,8 @@ export default function SettingsPage() {
         setCompleteDate(false)
         const datePos = dateList.indexOf(clickedDate)
         if (customMadeData[datePos]) {
+            setActivity(customMadeData[datePos].activity)
+            setIcon(customMadeData[datePos].icon)
             setCreatePopUp(true)
             closePopup()
         } else {
@@ -109,6 +118,7 @@ export default function SettingsPage() {
         }
         const datePos = dateList.indexOf(clickedDate)
 
+        console.log(icon)
         // Create element from the data
         const activityObject = {
             id: clickedDate,
@@ -130,14 +140,7 @@ export default function SettingsPage() {
         setActivity()
         setIcon()
 
-        console.log(customMadeData.length)
-
-        if (customMadeData.length === 24) {
-            setCalendarComplete(true)
-        }
     }
-
-
 
     function closeCreatePopup(event) {
         if (event.target.innerText === "Lukk") {
@@ -181,10 +184,6 @@ export default function SettingsPage() {
         setCompleteDate(false)
     }
 
-    /* function handleChange(event) {
-        console.log(event.target.value)
-    } */
-    
     localStorage.setItem('custom-data', JSON.stringify(customMadeData))
     
 
@@ -221,7 +220,7 @@ export default function SettingsPage() {
                         relative='path' 
                         to='../calendar'
                         state={{
-                            search: `?${customMadeData}`
+                            search: '?customMade'
                         }}
                     >Vis kalender</Link>
                 </div>
@@ -240,7 +239,7 @@ export default function SettingsPage() {
                                 to='../activity-examples'
                                 className='examples-link'
                             >Se eksempler</Link>
-                            <textarea type="text" id='activity' name="activity" autoComplete='off' onChange={(text) => setActivity(text.target.value)} defaultValue={customMadeData[dateList.indexOf(clickedDate)].activity}/>
+                            <textarea type="text" id='activity' name="activity" autoComplete='off' onChange={(text) => setActivity(text.target.value)} defaultValue={activity}/>
                         </div>
                         :
                         <div className='input-trio'>
@@ -265,9 +264,9 @@ export default function SettingsPage() {
                             <DatalistInput
                             className='datalist-icons' 
                             label="Velg ikon: "
-                            onSelect={(item) => setIcon(item)}
+                            onSelect={(item) => setIcon(item.value)}
                             items={iconElements}
-                            value={customMadeData[dateList.indexOf(clickedDate)].icon.value}
+                            value={icon}
                             />
                             <FaCircleInfo className='info-btn'/>
                             <div className='tooltip-text'>
@@ -280,7 +279,7 @@ export default function SettingsPage() {
                             <DatalistInput
                             className='datalist-icons' 
                             label="Velg ikon:"
-                            onSelect={(item) => setIcon(item)}
+                            onSelect={(item) => setIcon(item.value)}
                             items={iconElements}
                             />
                             <FaCircleInfo className='info-btn'/>
@@ -309,7 +308,7 @@ export default function SettingsPage() {
                         <h4>{customMadeData[dateList.indexOf(clickedDate)].id}. desember</h4>
                         <p className='date-activity'>{customMadeData[dateList.indexOf(clickedDate)].activity}</p>
                         <p className='date-icon'>
-                        {customMadeData[dateList.indexOf(clickedDate)].icon.value}</p> 
+                        {customMadeData[dateList.indexOf(clickedDate)].icon}</p> 
                         <div className='popup-btn-div'>
                             <button className='popup-btn' onClick={openCreatePopUp}>Endre</button>
                             <button className='popup-btn' onClick={closePopup}>Lukk</button>
