@@ -26,7 +26,7 @@ export default function StartPage() {
                 {showViewWarning && 
                 <Alert type='view-error' message='Du har jo allerede laget en kalender. Ta heller en titt på den du.' onClick={showViewAlert} />}
                 {showCreateWarning && 
-                <Alert type='create-error' message='Du har ikke laget noen kalender enda, gjør det først du.' onClick={showCreateAlert} />}
+                <Alert type='create-error' message='Du har jo ikke laget noen kalender enda. Ta og gjør det først du.' onClick={showCreateAlert} />}
                 {calendarCreated ? 
                 <Link 
                 onClick={showViewAlert}

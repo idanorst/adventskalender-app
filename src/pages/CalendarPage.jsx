@@ -8,6 +8,7 @@ import { data } from '../data'
 import CalendarBox from '../components/CalendarBox'
 
 export default function CalenderPage() {
+    document.querySelector("body").style.overflow = "hidden"
     var randomNumbers = [
         60, 10, 64, 30, 22, 51, 1, 8, 39, 36, 62, 50, 18, 25, 
         26, 11, 31, 2, 43, 14, 55, 66, 59, 32, 54, 23, 5, 20, 
@@ -86,69 +87,73 @@ export default function CalenderPage() {
 
     function createNewCalendarElements() {
         const calendarElements = []
-        if (location.state?.search === '?familieaktiviteter') {
-            var count = 0
-            for (let i = 0; i < randomNumbers.length; i++) {
-                if (data[randomNumbers[i]].category.includes('Familieaktivitet') && count < 24) {
-                    count += 1
-                    setIdList(prevList => [...prevList, randomNumbers[i]])
-                    calendarElements.push(
-                        <CalendarBox 
-                            id={randomNumbers[i]} 
-                            key={randomNumbers[i]}
-                            date={count}
-                            data={data[randomNumbers[i]]}
-                            onClick={calendarBoxClicked} 
-                        />
-                    )
-                }
-            }
-        } else if (location.state?.search === '?fysisk') {
-            var count = 0
-            for (let i = 0; i < randomNumbers.length; i++) {
-                if (data[randomNumbers[i]].category.includes('Fysisk aktivitet') && count < 24) {
-                    count += 1
-                    setIdList(prevList => [...prevList, randomNumbers[i]])
-                    calendarElements.push(
-                        <CalendarBox 
-                            id={randomNumbers[i]} 
-                            key={i}
-                            date={count}
-                            data={data[randomNumbers[i]]}
-                            onClick={calendarBoxClicked} 
-                        />
-                    )
-                }
-            }
-        } else if (location.state?.search === '?kulinarisk') {
-            var count = 0
-            for (let i = 0; i < randomNumbers.length; i++) {
-                if (data[randomNumbers[i]].category.includes('Kulinarisk aktivitet') && count < 24) {
-                    count += 1
-                    setIdList(prevList => [...prevList, randomNumbers[i]])
-                    calendarElements.push(
-                        <CalendarBox 
-                            id={randomNumbers[i]} 
-                            key={i}
-                            date={count}
-                            data={data[randomNumbers[i]]}
-                            onClick={calendarBoxClicked} 
-                        />
-                    )
-                }
-            }
+        if (location.state?.search === '?customeMade'){
+            console.log("Custom Made")
         } else {
-            for (let i = 0; i < 24; i++) {
-                setIdList(prevList => [...prevList, randomNumbers[i]])
-                calendarElements.push(
-                    <CalendarBox 
-                        id={randomNumbers[i]} 
-                        key={i}
-                        date={i + 1}
-                        data={data[randomNumbers[i]]}
-                        onClick={calendarBoxClicked} 
-                    />
-                )
+            if (location.state?.search === '?familieaktiviteter') {
+                var count = 0
+                for (let i = 0; i < randomNumbers.length; i++) {
+                    if (data[randomNumbers[i]].category.includes('Familieaktivitet') && count < 24) {
+                        count += 1
+                        setIdList(prevList => [...prevList, randomNumbers[i]])
+                        calendarElements.push(
+                            <CalendarBox 
+                                id={randomNumbers[i]} 
+                                key={randomNumbers[i]}
+                                date={count}
+                                data={data[randomNumbers[i]]}
+                                onClick={calendarBoxClicked} 
+                            />
+                        )
+                    }
+                }
+            } else if (location.state?.search === '?fysisk') {
+                var count = 0
+                for (let i = 0; i < randomNumbers.length; i++) {
+                    if (data[randomNumbers[i]].category.includes('Fysisk aktivitet') && count < 24) {
+                        count += 1
+                        setIdList(prevList => [...prevList, randomNumbers[i]])
+                        calendarElements.push(
+                            <CalendarBox 
+                                id={randomNumbers[i]} 
+                                key={i}
+                                date={count}
+                                data={data[randomNumbers[i]]}
+                                onClick={calendarBoxClicked} 
+                            />
+                        )
+                    }
+                }
+            } else if (location.state?.search === '?kulinarisk') {
+                var count = 0
+                for (let i = 0; i < randomNumbers.length; i++) {
+                    if (data[randomNumbers[i]].category.includes('Kulinarisk aktivitet') && count < 24) {
+                        count += 1
+                        setIdList(prevList => [...prevList, randomNumbers[i]])
+                        calendarElements.push(
+                            <CalendarBox 
+                                id={randomNumbers[i]} 
+                                key={i}
+                                date={count}
+                                data={data[randomNumbers[i]]}
+                                onClick={calendarBoxClicked} 
+                            />
+                        )
+                    }
+                }
+            } else {
+                for (let i = 0; i < 24; i++) {
+                    setIdList(prevList => [...prevList, randomNumbers[i]])
+                    calendarElements.push(
+                        <CalendarBox 
+                            id={randomNumbers[i]} 
+                            key={i}
+                            date={i + 1}
+                            data={data[randomNumbers[i]]}
+                            onClick={calendarBoxClicked} 
+                        />
+                    )
+                }
             }
         }
         setTodaysDate(calendarElements)
