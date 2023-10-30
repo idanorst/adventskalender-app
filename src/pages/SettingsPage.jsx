@@ -206,7 +206,7 @@ export default function SettingsPage() {
                         <Dropdown onChange={selectCategory}/>
                     </div>
                     <Link 
-                        className='link--visit' 
+                        className='link-button' 
                         relative='path' 
                         to='../calendar'
                         state={{
@@ -221,7 +221,7 @@ export default function SettingsPage() {
                         {miniCalendar}
                     </div>
                     <Link 
-                        className={`link--visit ${!calendarComplete && 'not-clickable'}`}
+                        className={`link-button ${!calendarComplete && 'not-clickable'}`}
                         relative='path' 
                         to='../calendar'
                         state={{

@@ -54,27 +54,7 @@ body {
   visibility: hidden;
 }
 
-.link--create {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 150px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  background-color: rgb(179, 65, 57);
-  color: var(--START-PAGE-BUTTON-COLOR);
-}
-
-.link--create:hover {
-  background-color: rgb(169, 55, 47);
-}
-
-.link--visit {
+.link-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,12 +65,64 @@ body {
   cursor: pointer;
   text-decoration: none;
   margin-top: 2rem;
+}
+
+.link--create {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 3rem;
+  margin-bottom: 1rem; */
+  background-color: rgb(179, 65, 57);
+  color: var(--START-PAGE-BUTTON-COLOR);
+}
+
+.link--create:hover {
+  background-color: rgb(169, 55, 47);
+}
+
+.link--visit {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 2rem; */
   background-color: rgb(155, 68, 67);
   color: var(--START-PAGE-BUTTON-COLOR);
 }
 
 .link--visit:hover {
   background-color: rgb(165, 88, 77);
+}
+
+.link--share {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 2rem; */
+  background-color: rgb(87, 38, 37);
+  color: var(--START-PAGE-BUTTON-COLOR);
+}
+
+.link--share:hover {
+  background-color: rgb(118, 51, 50);
 }
 
 .home-link {

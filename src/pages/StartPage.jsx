@@ -16,8 +16,7 @@ export default function StartPage() {
 
     function showCreateAlert() {
         setShowCreateWarning(prevState => !prevState)
-     }
-
+    }
 
     return (
         <div className='start-page--container'>
@@ -30,25 +29,30 @@ export default function StartPage() {
                 {calendarCreated ? 
                 <Link 
                 onClick={showViewAlert}
-                className='link--create'
+                className='link-button link--create'
                 >Lag kalender</Link>
                 : 
                 <Link 
                     to='../createCalendar'
                     relative='path'
-                    className='link--create'
+                    className='link-button link--create'
                 >Lag kalender</Link>}
                 {!calendarCreated ? 
                 <Link 
                     onClick={showCreateAlert}
-                    className='link--visit'
+                    className='link-button link--visit'
                 >Se kalender</Link>
                 :
                 <Link 
                     to='../calendar'
                     relative='path'
-                    className='link--visit'
+                    className='link-button link--visit'
                 >Se kalender</Link>}
+                <Link
+                    to='../shared'
+                    relative='path'
+                    className='link-button link--share'
+                >Se delt kalender</Link>
             </div>
             
         </div>

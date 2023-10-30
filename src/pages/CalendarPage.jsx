@@ -284,10 +284,10 @@ export default function CalenderPage() {
     function shareCalendar() {
         setSharePopup(true)
         const url = window.location.href
-        const tempUrl = url.slice(0, -8)
-        const shareUrl = tempUrl + 'shared'
+        /* const tempUrl = url.slice(0, -8)
+        const shareUrl = tempUrl + 'shared' */
         /* setLink(shareUrl) */
-        setEmailInfo(`mailto:?subject=Adventskalender&body=Det har blitt delt en julekalender med deg.%0D%0A%0D%0AKopier linken under får å åpne adventskalenderen.%0D%0A%0D%0A${shareUrl}`)
+        setEmailInfo(`mailto:?subject=Adventskalender&body=Det har blitt delt en julekalender med deg.%0D%0A%0D%0AKopier linken under får å åpne adventskalenderen.%0D%0A%0D%0A${url}`)
     }
 
     /* function send() {
