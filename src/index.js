@@ -12,6 +12,7 @@ import StartPage from './pages/StartPage'
 import CalenderPage from './pages/CalendarPage'
 import SettingsPage from './pages/SettingsPage'
 import ActivityExamples from './pages/ActivityExamples'
+import SharedCalendar from './pages/SharedCalender'
 
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path='createCalendar' element={<SettingsPage />}/>
       <Route path='calendar' element={<CalenderPage />}/>
       <Route path='activity-examples' element={<ActivityExamples />} />
+      <Route path='shared' element={<SharedCalendar />} />
   </Route>
 ))
 

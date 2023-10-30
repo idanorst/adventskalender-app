@@ -5,6 +5,7 @@ import Dropdown from '../components/Dropdown'
 import DatalistInput from 'react-datalist-input'
 import { click } from '@testing-library/user-event/dist/click'
 import { FaCircleInfo } from 'react-icons/fa6'
+import { saveAs } from 'file-saver'
 
 export default function SettingsPage() {
     const [category, setCategory] = React.useState()
@@ -60,8 +61,12 @@ export default function SettingsPage() {
     React.useEffect(() => {
         if (customMadeData.length === 24) {
             setCalendarComplete(true)
+/* 
+            // Creating a txt file with the custom-made activities
+            const file = new Blob([JSON.stringify(customMadeData)], {type: 'text/plain;charset=utf-8'})
+            saveAs(file, 'activities.txt') */
         }
-    })
+    },[])
 
     const iconElements = []
     for (let i = 0; i < icons.length; i++) {

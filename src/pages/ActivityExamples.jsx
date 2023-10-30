@@ -14,7 +14,15 @@ export default function ActivityExamples() {
         setCategory(c)
     }
 
-    document.querySelector(".home-link").style.visibility = "hidden"
+    /* document.querySelector(".home-link").style.visibility = "visible" */
+
+    /* document.querySelector(".home-link").style.pointerEvents = "none" */
+
+    /* if (document.querySelector(".home-link").style.visibility !== "hidden"){
+        console.log("hiding")
+        document.querySelector(".home-link").style.visibility = "hidden"
+    } */
+   
     /* document.querySelector(".top-row").style.paddingLeft = "1rem" */
 
 

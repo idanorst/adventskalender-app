@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import { data } from '../data'
 import CalendarBox from '../components/CalendarBox'
+import { saveAs } from 'file-saver'
 
 export default function CalenderPage() {
     document.querySelector("body").style.overflow = "hidden"
@@ -35,6 +36,12 @@ export default function CalenderPage() {
     const location = useLocation()
     const [calendarData, setCalendarData] = React.useState(setData)
     const [earlyDate, setEarlyDate] = React.useState()
+    const [sharePopup, setSharePopup] = React.useState()
+    const [sendCalendar, setSendCalendar] = React.useState()
+    const [emailInfo, setEmailInfo] = React.useState()
+    /* const [email, setEmail] = React.useState()
+    const [link, setLink] = React.useState()
+    const [file, setFile] = React.useState() */
     
     
     /* var activityChecked = false
@@ -46,6 +53,7 @@ export default function CalenderPage() {
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     
     const [wrongDate, setWrongDate] = React.useState()
+
 
     function setData() {
         var calendarElements = []
@@ -62,12 +70,12 @@ export default function CalenderPage() {
 
     function setTodaysDate(data) {
         for (let i = 0; i < data.length; i++) {
-            if (data[i].props.date === day) {
+            if (parseInt(data[i].props.date) === day) {
                 setDate(data[i])
             }
         }
     }
-    
+
     function restoreCalendarData() {
         const calendarElements = []
         if (customMadeData != []) {
@@ -116,6 +124,11 @@ export default function CalenderPage() {
                     />
                 )
             }
+
+            
+            // Creating a txt file with the custom-made activities
+            const file = new Blob([JSON.stringify(customMadeData)], {type: 'text/plain;charset=utf-8'})
+            saveAs(file, 'activities.txt')
         } else {
             if (location.state?.search === '?familieaktiviteter') {
                 var count = 0
@@ -190,9 +203,8 @@ export default function CalenderPage() {
     localStorage.setItem('idList', JSON.stringify(idList))
         
     function calendarBoxClicked(date) {
-        console.log(document.getElementById('overlay'))
         /* setBoxClicked(true) */
-        if (day === date) {
+        if (day === parseInt(date)) {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
                     setShowPopup(true)
@@ -269,6 +281,27 @@ export default function CalenderPage() {
         }
     }
 
+    function shareCalendar() {
+        setSharePopup(true)
+        const url = window.location.href
+        const tempUrl = url.slice(0, -8)
+        const shareUrl = tempUrl + 'shared'
+        /* setLink(shareUrl) */
+        setEmailInfo(`mailto:?subject=Adventskalender&body=Det har blitt delt en julekalender med deg.%0D%0A%0D%0AKopier linken under får å åpne adventskalenderen.%0D%0A%0D%0A${shareUrl}`)
+    }
+
+    /* function send() {
+        setSendCalendar(true)
+        const link = document.getElementById("link")
+        const email = document.getElementById("email")
+        const file = document.getElementById("file")
+
+        console.log(file.value, email.value, link.value)
+    } */
+
+    function closeSharePopup() {
+        setSharePopup(false)
+    }
     return (
         <div className='calendar-page--container'>
             <div className='calendar-page--content'>
@@ -278,7 +311,7 @@ export default function CalenderPage() {
                         <button className='close-button' onClick={closePopup}>
                             &times;
                         </button>
-                        <h2>{(date.props.date === 24) ? 'Juleaften' : `${date.props.date}. desember`}</h2>
+                        <h2>{(parseInt(date.props.date) === 24) ? 'Juleaften' : `${date.props.date}. desember`}</h2>
                         <h4>Dagens aktvitet er: </h4>
                         <p className='pop-up--activity'>{date.props.data.activity}</p>
                         <p className='icon'>{date.props.data.icon}</p>
@@ -302,7 +335,7 @@ export default function CalenderPage() {
                         <button className='close-button' onClick={closeEarlyPopup}>
                             &times;
                         </button>
-                        <h2>{(earlyDate.props.date === 24) ? 'Juleaften' : `${earlyDate.props.date}. desember`}</h2>
+                        <h2>{(parseInt(earlyDate.props.date) === 24) ? 'Juleaften' : `${earlyDate.props.date}. desember`}</h2>
                         <h4>Dagens aktvitet er: </h4>
                         <p className='pop-up--activity'>{earlyDate.props.data.activity}</p>
                         <p className='icon'>{earlyDate.props.data.icon}</p>
@@ -326,12 +359,25 @@ export default function CalenderPage() {
                         <button className='close-button' onClick={closeWarningPopup}>
                             &times;
                         </button>
-                        <h2>Å nei du, det er ikke {wrongDate === 24 ? 'Juleaften' : `${wrongDate}. desember`} idag.</h2>
+                        <h2>Å nei du, det er ikke {parseInt(wrongDate) === 24 ? 'Juleaften' : `${wrongDate}. desember`} idag.</h2>
                         <p className='warning-icon'>🎅</p>
                     </div>
                 </div>}
                 {calendarData}
             </div>
+            <button className='share-btn' onClick={shareCalendar}>Del 🔗</button>
+            {sharePopup && <div className='share-popup'>
+                <h3>Del kalenderen med andre</h3>
+                <p>Legg med 'activities.txt' som vedlegg og del kalenderen med andre.</p>
+                {/* <label htmlFor='email'>Hvem skal den deles med:</label>
+                <input type="text" name='email' id='email'/>
+                <label htmlFor='link'>Lim inn linken:</label>
+                <input type="text" name='link' id='link'/>
+                <label htmlFor="aktivitets-fil">Legg ved aktivitets-filen</label>
+                <input type='file' id='file'/>
+                <input type="submit" onClick={send}/> */}
+                <a href={emailInfo} onClick={closeSharePopup}>Send kalender</a>
+            </div>}
         </div>
     )
 }

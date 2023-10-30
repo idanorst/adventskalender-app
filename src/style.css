@@ -7,7 +7,7 @@
 :root {
   /* COLORS */
   --BG-COLOR: rgb(245, 94, 91);
-  --START-PAGE-BUTTON-COLOR: rgb(209, 209, 209);
+  --START-PAGE-BUTTON-COLOR: rgb(227, 226, 226);
   --TITLE-COLOR: rgb(233, 233, 233);
 
   /* TEXT STYLES */
@@ -18,8 +18,8 @@
 /* GENERAL STYLES */
 body {
   background: var(--BG-COLOR);
-  /* min-height: 90vh; */
-  /* overflow-y: hidden; */
+  font-family: var(--FONT-FAMILY);
+  overflow: hidden;
 }
 
 .container {
@@ -64,7 +64,6 @@ body {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  font-family: var(--FONT-FAMILY);
   margin-top: 3rem;
   margin-bottom: 1rem;
   background-color: rgb(179, 65, 57);
@@ -85,7 +84,6 @@ body {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  font-family: var(--FONT-FAMILY);
   margin-top: 2rem;
   background-color: rgb(155, 68, 67);
   color: var(--START-PAGE-BUTTON-COLOR);
@@ -115,7 +113,6 @@ body {
   padding-right: 0.3rem;
   font-size: 0.7rem;
   height: 4rem;
- /*  background: radial-gradient(darkgreen, green); */
   background-color: rgb(185, 54, 52);
   color: whitesmoke;
 }
@@ -143,7 +140,6 @@ body {
 
 .start-page--title {
   color: var(--TITLE-COLOR);
-  font-family: var(--FONT-FAMILY);
   text-align: center;
   letter-spacing: 2px;
   word-wrap: break-word;
@@ -167,15 +163,15 @@ body {
 .alert-container {
   text-align: center;
   color: black;
-  font-family: var(--FONT-FAMILY);
 }
 
 .alert-first-line {
+  margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
 .alert-container > p {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .closebtn {
@@ -208,7 +204,6 @@ body {
 .info-div {
   padding: 1rem 2rem;
   text-align: center;
-  font-family: var(--FONT-FAMILY);
 }
 
 .info-div > h3 {
@@ -228,7 +223,6 @@ body {
 
 .options-div h4 {
   margin-top: 1rem;
-  font-family: var(--FONT-FAMILY);
   color: rgb(43, 43, 43);
 }
 
@@ -295,7 +289,6 @@ body {
   justify-content: space-between;
   user-select: none;
   cursor: pointer;
-  font-family: var(--FONT-FAMILY);
   font-size: 0.8rem;
 }
 
@@ -320,7 +313,6 @@ body {
   padding: 5px;
   cursor: pointer;
   color: black;
-  font-family: var(--FONT-FAMILY);
   font-size: 0.8rem;
 }
 
@@ -373,10 +365,6 @@ body {
   margin-top: 1rem;
 }
 
-/* .make-own-container:hover > .mini-calendar {
-  height: 65%;
-} */
-
 .mini-date {
   display: flex;
   flex-direction: column;
@@ -385,6 +373,7 @@ body {
   margin: 0;
   background-color: whitesmoke;
   color: black;
+  font-size: 0.9rem;
   padding: 0.3rem;
   border: 1px solid black;
   cursor: pointer;
@@ -431,7 +420,6 @@ body {
 }
 
 .settings-popup label {
-  font-family: var(--FONT-FAMILY);
   font-size: 0.9rem;
 }
 
@@ -477,7 +465,6 @@ body {
 
 .tooltip-text {
   position: absolute;
-  font-family: var(--FONT-FAMILY);
   font-size: 0.7rem;
   background-color: rgba(255, 255, 255, 0.943);
   width: 100px;
@@ -511,7 +498,6 @@ body {
 .examples-link {
   color: black;
   font-size: 0.8rem;
-  font-family: var(--FONT-FAMILY);
 }
 
 .examples-link:hover{
@@ -527,7 +513,6 @@ body {
   display: none;
   border: none;
   background-color: inherit;
-  font-family: var(--FONT-FAMILY);
   text-decoration: underline;
   cursor: pointer;
 }
@@ -538,7 +523,6 @@ body {
   font-size: 1.5rem;
   margin-left: 1rem;
   text-align: center;
-  font-family: var(--FONT-FAMILY);
 }
 
 .react-datalist-input__textbox:focus {
@@ -587,7 +571,6 @@ body {
 
 .date-popup > .date-activity {
   margin: 2rem 0 0.5rem 0;
-  font-family: var(--FONT-FAMILY);
   font-size: 1.5rem;
 }
 
@@ -604,7 +587,6 @@ body {
   position: relative;
   top: -8rem;
   text-align: center;
-  font-family: var(--FONT-FAMILY);
   font-size: 0.8rem;
   width: 200px;
   height: 200px;
@@ -660,6 +642,8 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
+  /* min-width: 1400px; */
+  /* min-height: 85vh; */
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
@@ -722,7 +706,6 @@ body {
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.961);
   border-radius: 10px;
-  font-family: var(--FONT-FAMILY);
   z-index: 99;
 }
 
@@ -781,6 +764,85 @@ input[type=checkbox] {
   font-size: 4rem;
 }
 
+.share-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 110px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(30, 129, 30);
+  color: whitesmoke;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background-color: rgb(59, 139, 59);
+}
+
+.share-popup {
+  position: absolute;
+  top: 15rem;
+  background-color: white;
+  width: 250px;
+  height: 250px;
+  border: 1px solid black;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.share-popup > h3 {
+  margin-bottom: 1rem;
+}
+
+.share-popup > p {
+  margin-bottom: 0.5rem;
+}
+
+/* SHARED CALENDAR STYLES */
+.file-selector-popup {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  height: 200px;
+  width: 300px;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid black;
+  position: absolute;
+  justify-self: center;
+  margin-top: 10rem;
+  padding: 1rem;
+}
+
+.file-selector-popup > input[type="file"] {
+  text-align: center;
+  margin-left: 7rem;
+  
+}
+
+/* TODO: Style input file button */
+/* input[type="button"] {
+  background-color: darkgreen;
+  color: whitesmoke;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+} */
+
+.show-btn {
+  background-color: darkgreen;
+  color: whitesmoke;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
 /* ACTIVITY DATABASE */
 .activity-database-container {
   display: flex;
@@ -790,7 +852,6 @@ input[type=checkbox] {
 }
 
 .activity-database-container h1 {
-  font-family: var(--FONT-FAMILY);
   color: #202020;
 }
 
@@ -801,7 +862,6 @@ input[type=checkbox] {
   padding: 1rem;
   margin-top: 1rem;
   border-radius: 5px;
-  font-family: var(--FONT-FAMILY);
   font-size: 0.8rem;
 }
 
@@ -821,12 +881,9 @@ input[type=checkbox] {
   background-color: rgb(185, 54, 52);
 }
 
-
 .activity-database-container > .dropdown-container {
   max-width: 500px;
 }
-
-
 
 /* MEDIA QUERIES */
 @media screen and (min-width: 375px) {
@@ -1041,7 +1098,7 @@ input[type=checkbox] {
   .calendar-page--content {
     background-position: top;
     height: 730px;
-    width: 80%;
+    /* width: 80%; */
     max-width: 1140px;
   }
 
