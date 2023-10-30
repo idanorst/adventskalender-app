@@ -10,44 +10,25 @@ import { saveAs } from 'file-saver'
 
 export default function CalenderPage() {
     document.querySelector("body").style.overflow = "hidden"
-    var randomNumbers = [
+
+    let randomNumbers = [
         60, 10, 64, 30, 22, 51, 1, 8, 39, 36, 62, 50, 18, 25, 
         26, 11, 31, 2, 43, 14, 55, 66, 59, 32, 54, 23, 5, 20, 
         17, 49, 16, 0, 48, 29, 57, 65, 41, 61, 42, 53, 7, 13, 
         12, 19, 3, 37, 35, 15, 38, 52, 40, 34, 47, 44, 46, 28,
         63, 58, 27, 4, 24, 56, 45, 9, 21, 6, 33
     ]
-
-    /* var activityChecked = {
-        1: false, 2: false, 3: false, 4: false, 5: false,
-        6: false, 7: false, 8: false, 9: false, 10: false, 
-        11: false, 12: false, 13: false, 14: false, 
-        15: false, 16: false, 17: false, 18: false, 
-        19: false, 20: false, 21: false, 22: false, 
-        23: false, 24: false
-    } */
     
     const calendarCreated = localStorage.getItem('calendarCreated')
     const customMadeData= JSON.parse(localStorage.getItem('custom-data')) || []
     const [idList, setIdList] = React.useState(JSON.parse(localStorage.getItem('idList')) || [])
     const [ day ] = useOutletContext()
-    /* const [boxClicked, setBoxClicked] = React.useState(false) */
     const [date, setDate] = React.useState()
     const location = useLocation()
     const [calendarData, setCalendarData] = React.useState(setData)
     const [earlyDate, setEarlyDate] = React.useState()
     const [sharePopup, setSharePopup] = React.useState()
-    const [sendCalendar, setSendCalendar] = React.useState()
     const [emailInfo, setEmailInfo] = React.useState()
-    /* const [email, setEmail] = React.useState()
-    const [link, setLink] = React.useState()
-    const [file, setFile] = React.useState() */
-    
-    
-    /* var activityChecked = false
-    var earlyActivityChecked = false */
-
-    /* console.log(earlyDate.props.date) */
     const [showPopup, setShowPopup] = React.useState(false)
     const [showEarlyPopup, setShowEarlyPopup] = React.useState(false)
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
@@ -58,12 +39,10 @@ export default function CalenderPage() {
     function setData() {
         var calendarElements = []
         if (!calendarCreated) {
-            console.log('Creating...')
             calendarElements = createNewCalendarElements()
             localStorage.setItem('calendarCreated', true) 
         } else if (calendarCreated) {
             calendarElements = restoreCalendarData()
-            console.log('Restoring...')
         } 
         return calendarElements
     }
@@ -78,7 +57,7 @@ export default function CalenderPage() {
 
     function restoreCalendarData() {
         const calendarElements = []
-        if (customMadeData != []) {
+        if (customMadeData.length > 0) {
             for (let i = 0; i < idList.length; i++) {
                 calendarElements.push(
                     <CalendarBox 
@@ -87,7 +66,6 @@ export default function CalenderPage() {
                         date={customMadeData[i].id}
                         data={customMadeData[i]}
                         onClick={calendarBoxClicked}
-                        /* boxClicked={boxClicked}  */
                     />
                 )
             }
@@ -100,7 +78,6 @@ export default function CalenderPage() {
                         date={i + 1}
                         data={data[idList[i]]}
                         onClick={calendarBoxClicked}
-                        /* boxClicked={boxClicked}  */
                     />
                 )
             }
@@ -110,6 +87,7 @@ export default function CalenderPage() {
     }
 
     function createNewCalendarElements() {
+        console.log(location.state)
         const calendarElements = []
         if (location.state?.search === '?customMade'){
             for (let i = 0; i < customMadeData.length; i++) {
@@ -165,6 +143,7 @@ export default function CalenderPage() {
                     }
                 }
             } else if (location.state?.search === '?kulinarisk') {
+                console.log("kulinarisk")
                 var count = 0
                 for (let i = 0; i < randomNumbers.length; i++) {
                     if (data[randomNumbers[i]].category.includes('Kulinarisk aktivitet') && count < 24) {
@@ -208,18 +187,14 @@ export default function CalenderPage() {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
                     setShowPopup(true)
-                    /* document.getElementById(calendarData[i].props.id).style.backdropFilter = 'blur(5px)'; */
                     document.getElementById(calendarData[i].props.id).innerHTML = ''
                 }
             }
         } else if (date < day) {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
-                    /* localStorage.setItem(date, true) */
-                    /* setShowPopup(true) */
                     setEarlyDate(calendarData[i])
                     setShowEarlyPopup(true)
-                    /* document.getElementById(calendarData[i].props.id).style.backdropFilter = 'blur(5px)'; */
                     document.getElementById(calendarData[i].props.id).innerHTML = ''
                 }
             }
@@ -231,7 +206,6 @@ export default function CalenderPage() {
 
     function closePopup() {
         setShowPopup(false)
-        /* setBoxClicked(false) */
         if (localStorage.getItem(date.props.date)) {
             document.getElementById(date.props.id).innerHTML = date.props.data.icon
             document.getElementById(date.props.id).style.backdropFilter = 'blur(5px)';
@@ -284,20 +258,8 @@ export default function CalenderPage() {
     function shareCalendar() {
         setSharePopup(true)
         const url = window.location.href
-        /* const tempUrl = url.slice(0, -8)
-        const shareUrl = tempUrl + 'shared' */
-        /* setLink(shareUrl) */
         setEmailInfo(`mailto:?subject=Adventskalender&body=Det har blitt delt en julekalender med deg.%0D%0A%0D%0AKopier linken under får å åpne adventskalenderen.%0D%0A%0D%0A${url}`)
     }
-
-    /* function send() {
-        setSendCalendar(true)
-        const link = document.getElementById("link")
-        const email = document.getElementById("email")
-        const file = document.getElementById("file")
-
-        console.log(file.value, email.value, link.value)
-    } */
 
     function closeSharePopup() {
         setSharePopup(false)
@@ -305,7 +267,6 @@ export default function CalenderPage() {
     return (
         <div className='calendar-page--container'>
             <div className='calendar-page--content'>
-                {/* {(showPopup || showWarningPopup) && <div className='overlay'></div>} */}
                 {showPopup && <div className='pop-up-container'>
                     <div className='pop-up'>
                         <button className='close-button' onClick={closePopup}>
@@ -369,13 +330,6 @@ export default function CalenderPage() {
             {sharePopup && <div className='share-popup'>
                 <h3>Del kalenderen med andre</h3>
                 <p>Legg med 'activities.txt' som vedlegg og del kalenderen med andre.</p>
-                {/* <label htmlFor='email'>Hvem skal den deles med:</label>
-                <input type="text" name='email' id='email'/>
-                <label htmlFor='link'>Lim inn linken:</label>
-                <input type="text" name='link' id='link'/>
-                <label htmlFor="aktivitets-fil">Legg ved aktivitets-filen</label>
-                <input type='file' id='file'/>
-                <input type="submit" onClick={send}/> */}
                 <a href={emailInfo} onClick={closeSharePopup}>Send kalender</a>
             </div>}
         </div>

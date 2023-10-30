@@ -19,7 +19,7 @@
 body {
   background: var(--BG-COLOR);
   font-family: var(--FONT-FAMILY);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .container {
