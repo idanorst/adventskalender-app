@@ -10,20 +10,22 @@ export default function SharedCalendar() {
     document.querySelector("body").style.overflow = "hidden"
     const [item, setItem] = React.useState()
     const calendarCreated = localStorage.getItem('calendar-created')
-    /* const [file, setFile] = React.useState() */
-    /* const [idList, setIdList] = React.useState(JSON.parse(localStorage.getItem('idList')) || []) */
     const [ day ] = useOutletContext()
     const [date, setDate] = React.useState()
-   /*  const location = useLocation() */
-    const [calendarData, setCalendarData] = React.useState(calendarCreated && restoreCalendarData)
+    const [calendarData, setCalendarData] = React.useState(restoreCalendarData)
+    /* const [newCalendarData, setNewCalendarData] = React.useState(createNewCalendarElements) */
     const [earlyDate, setEarlyDate] = React.useState()
     const [showPopup, setShowPopup] = React.useState(false)
     const [showEarlyPopup, setShowEarlyPopup] = React.useState(false)
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     const [wrongDate, setWrongDate] = React.useState()
     const [showFileSelector, setShowFileSelector] = React.useState(calendarCreated ? false : true)
+    const [showButton, setShowButton] = React.useState(true)
 
-    const [, updateState] = React.useState();
+    /* console.log("Rerendering")
+    console.log(newCalendarData )*/
+
+    /* const [, updateState] = React.useState();
     const forceUpdate = React.useCallback(() => updateState({}), []);
     
     React.useEffect(() => {
@@ -31,7 +33,7 @@ export default function SharedCalendar() {
             console.log("setting data")
             forceUpdate()
         }    
-    }, [])
+    }, []) */
     /* let file
 
     
@@ -60,14 +62,14 @@ export default function SharedCalendar() {
         setCalendarData(setData())
     } */
 
-    function refreshPage() {
+   /*  function refreshPage() {
         window.location.reload(false);
-      }
+      } */
 
     function closeFileSelector() {
         setShowFileSelector(false)
 
-        let calendarElements = []
+        /* let calendarElements = []
         let recievedData
         const file = item.target.files[0]
         let fr = new FileReader()
@@ -87,9 +89,9 @@ export default function SharedCalendar() {
             setTodaysDate(calendarElements)
             localStorage.setItem('calendar-data', JSON.stringify(recievedData))
             localStorage.setItem('calendar-created', true)
-            refreshPage()
+            //refreshPage()
         }
-        fr.readAsText(file)
+        fr.readAsText(file) */
         /* setData() */
         /* const file = document.querySelector('#file-selector').files[0] */
         /* let data 
@@ -145,6 +147,7 @@ export default function SharedCalendar() {
 
     function createNewCalendarElements() {
         const calendarElements = []
+        console.log(JSON.parse(localStorage.getItem('calendar-data')))
         /* for (let i = 0; i < recievedCalendarData.length; i++){
             calendarElements.push(
                 <CalendarBox 
@@ -159,7 +162,7 @@ export default function SharedCalendar() {
         setTodaysDate(calendarElements)
         localStorage.setItem('calendarData', JSON.stringify(calendarElements)) */
 
-        let recievedData
+        /* let recievedData
         const file = item.target.files[0]
         let fr = new FileReader()
         fr.onload = function() {
@@ -179,7 +182,7 @@ export default function SharedCalendar() {
             localStorage.setItem('calendar-data', JSON.stringify(recievedData))
             localStorage.setItem('calendar-created', true)
         }
-        fr.readAsText(file)
+        fr.readAsText(file) */
         return calendarElements
     }
 
@@ -318,12 +321,14 @@ export default function SharedCalendar() {
                         <p className='warning-icon'>🎅</p>
                     </div>
                 </div>}
-                {showFileSelector && 
+                {/* {showFileSelector && 
                     <div className="file-selector-popup">
                         <h3>Last opp aktivitets-fil</h3>
                         <input id="file-selector" type="file" onChange={(e) => setItem(e)}/>
-                        <button className="show-btn" onClick={closeFileSelector}>Vis kalender</button>
-                    </div>}
+                        <button className="add-btn" onClick={closeFileSelector}>Legg til</button>
+                    </div>
+                } */}
+                
                 {calendarData}
             </div>
         </div>
