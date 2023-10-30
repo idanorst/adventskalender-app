@@ -49,7 +49,7 @@ export default function StartPage() {
                     className='link-button link--visit'
                 >Se kalender</Link>}
                 <Link
-                    to='../shared'
+                    to='../createShared'
                     relative='path'
                     className='link-button link--share'
                 >Se delt kalender</Link>
