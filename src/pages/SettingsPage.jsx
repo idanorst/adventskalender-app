@@ -6,6 +6,7 @@ import DatalistInput from 'react-datalist-input'
 import { click } from '@testing-library/user-event/dist/click'
 import { FaCircleInfo } from 'react-icons/fa6'
 import { saveAs } from 'file-saver'
+import ActivityExamples from './ActivityExamples'
 
 export default function SettingsPage() {
     const [category, setCategory] = React.useState()
@@ -18,6 +19,7 @@ export default function SettingsPage() {
     const [activity, setActivity] = React.useState()
     const [icon, setIcon] = React.useState()
     const [completeDate, setCompleteDate] = React.useState(false)
+    const [showExamples, setShowExamples] = React.useState(false)
 
     if (dateList.length === 0 && customMadeData.length != 0) {
         for (let i = 0; i < customMadeData.length; i++) {
@@ -51,11 +53,11 @@ export default function SettingsPage() {
 
     setTimeout(() => {
         if (customMadeData.length > 0) {
-        for (let k = 0; k < customMadeData.length; k++) {
-            if (dateList.includes(customMadeData[k].id)) {
-                document.querySelector(".mini-calendar").children[dateList[k]-1].classList.add("date-completed")
+            for (let k = 0; k < customMadeData.length; k++) {
+                if (dateList.includes(customMadeData[k].id)) {
+                    document.querySelector(".mini-calendar").children[dateList[k]-1].classList.add("date-completed")
+                }
             }
-        }
     }})
 
     React.useEffect(() => {
@@ -189,6 +191,14 @@ export default function SettingsPage() {
         setCompleteDate(false)
     }
 
+    function openExamples() {
+        setShowExamples(true)
+    }
+
+    function closeExamples() {
+        setShowExamples(false)
+    }
+
     localStorage.setItem('custom-data', JSON.stringify(customMadeData))
     
 
@@ -206,7 +216,7 @@ export default function SettingsPage() {
                         <Dropdown onChange={selectCategory}/>
                     </div>
                     <Link 
-                        className='link-button' 
+                        className='link-button settings-btn' 
                         relative='path' 
                         to='../calendar'
                         state={{
@@ -221,7 +231,7 @@ export default function SettingsPage() {
                         {miniCalendar}
                     </div>
                     <Link 
-                        className={`link-button ${!calendarComplete && 'not-clickable'}`}
+                        className={`link-button ${!calendarComplete && 'not-clickable'} settings-btn`}
                         relative='path' 
                         to='../calendar'
                         state={{
@@ -255,11 +265,10 @@ export default function SettingsPage() {
                                     <p>Skriv inn en aktivitet som skal utføres denne datoen.</p>
                                 </div>
                             </div>
-                            <Link
-                                target='_blank' 
-                                to='../activity-examples'
+                            <button
                                 className='examples-link'
-                            >Se eksempler</Link>
+                                onClick={openExamples}
+                            >Se eksempler</button>
                             <textarea type="text" id='activity' name="activity" autoComplete='off' onChange={(text) => setActivity(text.target.value)}/>
                         </div>
                         
@@ -319,6 +328,14 @@ export default function SettingsPage() {
                             <button className='popup-btn' onClick={closePopup}>Lukk</button>
                         </div>
                     </div>
+                }
+                {showExamples && 
+                <div className='examples-popup'>
+                    <button className='close-button' onClick={closeExamples}>
+                        &times;
+                    </button>
+                    <ActivityExamples />
+                </div>
                 }
             </div>
             

@@ -104,9 +104,9 @@ export default function CalenderPage() {
             }
 
             
-            // Creating a txt file with the custom-made activities
+            /* // Creating a txt file with the custom-made activities
             const file = new Blob([JSON.stringify(customMadeData)], {type: 'text/plain;charset=utf-8'})
-            saveAs(file, 'activities.txt')
+            saveAs(file, 'activities.txt') */
         } else {
             if (location.state?.search === '?familieaktiviteter') {
                 var count = 0
@@ -256,8 +256,26 @@ export default function CalenderPage() {
     }
 
     function shareCalendar() {
+        if (JSON.parse(localStorage.getItem('custom-data')).length > 0){
+            // Creating a txt file with the custom-made activities
+            const file = new Blob([JSON.stringify(customMadeData)], {type: 'text/plain;charset=utf-8'})
+            saveAs(file, 'activities.txt')
+        } else {
+            const calendarElements = []
+            for (let i = 0; i < idList.length; i++) {
+                const activityObject = {
+                    id: i + 1,
+                    activity: data[idList[i]].activity,
+                    icon: data[idList[i]].icon
+                }
+                calendarElements.push(activityObject)
+            }
+            // Creating a txt file with the custom-made activities
+            const file = new Blob([JSON.stringify(calendarElements)], {type: 'text/plain;charset=utf-8'})
+            saveAs(file, 'activities.txt')
+        }
         setSharePopup(true)
-        const url = window.location.href
+        const url = (window.location.href).slice(0, -9)
         setEmailInfo(`mailto:?subject=Adventskalender&body=Det har blitt delt en julekalender med deg.%0D%0A%0D%0AKopier linken under får å åpne adventskalenderen.%0D%0A%0D%0A${url}`)
     }
 

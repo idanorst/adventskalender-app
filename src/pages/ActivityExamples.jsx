@@ -6,7 +6,7 @@ import Dropdown from "../components/Dropdown"
 
 export default function ActivityExamples() {
     const databaseData = data
-    const categoryList = ['Familie aktiviteter', 'Kulinariske aktiviteter', 'Fysiske utfordringer']
+    /* const categoryList = ['Familie aktiviteter', 'Kulinariske aktiviteter', 'Fysiske utfordringer'] */
     const activityList = []
     const [category, setCategory] = React.useState()
 
@@ -14,46 +14,39 @@ export default function ActivityExamples() {
         setCategory(c)
     }
 
-    /* document.querySelector(".home-link").style.visibility = "visible" */
-
-    /* document.querySelector(".home-link").style.pointerEvents = "none" */
-
-    /* if (document.querySelector(".home-link").style.visibility !== "hidden"){
-        console.log("hiding")
-        document.querySelector(".home-link").style.visibility = "hidden"
-    } */
-   
-    /* document.querySelector(".top-row").style.paddingLeft = "1rem" */
-
+    console.log(category)
 
     if (category) {
         for (let i = 0; i < databaseData.length; i++) {
-            console.log(databaseData[i].category)
             if (category === 'familieaktiviteter' && databaseData[i].category.includes('Familieaktivitet')) {
+                console.log("familie")
                 activityList.push(
                     <div className="activity-data" key={i}>
                         <p className="activity-name">{databaseData[i].activity}</p>
                     </div>
                 )
             } else if (category === 'kulinarisk' && databaseData[i].category.includes('Kulinarisk aktivitet')) {
+                console.log("kulinarisk")
                 activityList.push(
                     <div className="activity-data" key={i}>
                         <p className="activity-name">{databaseData[i].activity}</p>
                     </div>
                 )
             } else if (category === 'fysisk' && databaseData[i].category.includes('Fysisk aktivitet')) {
+                console.log("fysisk")
                 activityList.push(
                     <div className="activity-data" key={i}>
                         <p className="activity-name">{databaseData[i].activity}</p>
                     </div>
                 )
-            } else {
+            } else if (category === 'blanding') {
                 activityList.push(
                     <div className="activity-data" key={i}>
                         <p className="activity-name">{databaseData[i].activity}</p>
                     </div>
                 )
             }
+            console.log(activityList.length)
         } 
     } else {
         for (let i = 0; i < databaseData.length; i++) {
@@ -65,10 +58,12 @@ export default function ActivityExamples() {
         }
     }
 
+    console.log(activityList)
+
 
     return (
         <div className="activity-database-container">
-            <h1>Aktivitetsdatabase</h1>
+            {/* <h1>Aktivitetsdatabase</h1> */}
             <Dropdown onChange={selectCategory}/>
             <div className="activity-database">
                 {activityList}
