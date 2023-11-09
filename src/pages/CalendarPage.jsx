@@ -57,7 +57,7 @@ export default function CalenderPage() {
 
     function restoreCalendarData() {
         const calendarElements = []
-        if (customMadeData.length > 0) {
+        if (customMadeData.length === 24) {
             for (let i = 0; i < idList.length; i++) {
                 calendarElements.push(
                     <CalendarBox 
@@ -103,10 +103,6 @@ export default function CalenderPage() {
                 )
             }
 
-            
-            /* // Creating a txt file with the custom-made activities
-            const file = new Blob([JSON.stringify(customMadeData)], {type: 'text/plain;charset=utf-8'})
-            saveAs(file, 'activities.txt') */
         } else {
             if (location.state?.search === '?familieaktiviteter') {
                 var count = 0
@@ -282,6 +278,11 @@ export default function CalenderPage() {
     function closeSharePopup() {
         setSharePopup(false)
     }
+
+    function closeShare() {
+        setSharePopup(false)
+    }
+
     return (
         <div className='calendar-page--container'>
             <div className='calendar-page--content'>
@@ -345,11 +346,17 @@ export default function CalenderPage() {
                 {calendarData}
             </div>
             <button className='share-btn' onClick={shareCalendar}>Del 🔗</button>
-            {sharePopup && <div className='share-popup'>
-                <h3>Del kalenderen med andre</h3>
-                <p>Legg med 'activities.txt' som vedlegg og del kalenderen med andre.</p>
-                <a href={emailInfo} onClick={closeSharePopup}>Send kalender</a>
-            </div>}
+            {sharePopup && <div className='pop-up-container'>
+                <div className='share-popup'>
+                    <span className='close-button' onClick={closeShare}>
+                        &times;
+                    </span>
+                    <h3>Del kalenderen med andre</h3>
+                    <p>Legg med 'activities.txt' som vedlegg og del kalenderen med andre.</p>
+                    <a href={emailInfo} onClick={closeSharePopup}>Send kalender</a>
+                </div>
+            </div>
+            }
         </div>
     )
 }

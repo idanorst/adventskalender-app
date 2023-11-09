@@ -3,10 +3,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Dropdown from '../components/Dropdown'
 import DatalistInput from 'react-datalist-input'
-import { click } from '@testing-library/user-event/dist/click'
+/* import { click } from '@testing-library/user-event/dist/click' */
 import { FaCircleInfo } from 'react-icons/fa6'
-import { saveAs } from 'file-saver'
+/* import { saveAs } from 'file-saver' */
 import ActivityExamples from './ActivityExamples'
+import { act } from '@testing-library/react'
 
 export default function SettingsPage() {
     const [category, setCategory] = React.useState()
@@ -20,8 +21,9 @@ export default function SettingsPage() {
     const [icon, setIcon] = React.useState()
     const [completeDate, setCompleteDate] = React.useState(false)
     const [showExamples, setShowExamples] = React.useState(false)
+    const [chooseWarning, setChooseWarning] = React.useState(false)
 
-    if (dateList.length === 0 && customMadeData.length != 0) {
+    if (dateList.length === 0 && customMadeData.length !== 0) {
         for (let i = 0; i < customMadeData.length; i++) {
             setDateList(prevList => [...prevList, customMadeData[i].id])
         }
@@ -32,8 +34,12 @@ export default function SettingsPage() {
     ]
 
     function selectCategory(c) {
+        if (localStorage.getItem('calendarCreated')) {
+            localStorage.removeItem('calendarCreated')
+            localStorage.removeItem('idList')
+            localStorage.removeItem('calendarCreated')
+        }
         setCategory(c)
-        console.log(category)
     }
 
     if (popUp || createPopUp) {
@@ -41,8 +47,6 @@ export default function SettingsPage() {
         document.querySelector(".make-own-container").classList.add("absolute")
         document.querySelector(".back-btn").style.display = "block"
     }
-
-    
 
     const miniCalendar = []
     for (let i = 0; i < 24; i++) {
@@ -63,10 +67,6 @@ export default function SettingsPage() {
     React.useEffect(() => {
         if (customMadeData.length === 24) {
             setCalendarComplete(true)
-/* 
-            // Creating a txt file with the custom-made activities
-            const file = new Blob([JSON.stringify(customMadeData)], {type: 'text/plain;charset=utf-8'})
-            saveAs(file, 'activities.txt') */
         }
     },[])
 
@@ -103,6 +103,7 @@ export default function SettingsPage() {
         setCompleteDate(false)
         const datePos = dateList.indexOf(clickedDate)
         if (customMadeData[datePos]) {
+            console.log("already in list")
             setActivity(customMadeData[datePos].activity)
             setIcon(customMadeData[datePos].icon)
             setCreatePopUp(true)
@@ -110,22 +111,31 @@ export default function SettingsPage() {
         } else {
             setCreatePopUp(true)
         }
-        
     }
 
     function addActivity() {
-        console.log(activity, icon)
-        if (activity && icon) {
+        const currentActivity = document.querySelector("#activity").value
+        const currentIcon = document.querySelector(".react-datalist-input__textbox").value
+        const datePos = dateList.indexOf(clickedDate)
+
+        if (currentActivity && currentIcon) {
             setCompleteDate(true)
         }
 
-        if (activity === undefined || icon === undefined) {
+        if ((!currentActivity || !currentIcon) && customMadeData[datePos]) {
+            console.log("hdk")
+            if (customMadeData[datePos] === clickedDate) {
+                openWarning("no complete change")
+                return
+            } 
+        } 
+    
+        if ((!currentActivity || !currentIcon) && !customMadeData[datePos]) {
             openWarning("add")
             return
         }
-        const datePos = dateList.indexOf(clickedDate)
+        
 
-        console.log(icon)
         // Create element from the data
         const activityObject = {
             id: clickedDate,
@@ -144,25 +154,47 @@ export default function SettingsPage() {
         document.querySelector(".mini-calendar").children[clickedDate-1].classList.add("date-completed")
         setCreatePopUp(false)
         setCompleteDate(false)
-        setActivity()
-        setIcon()
-
+        /* setActivity()
+        setIcon() */
     }
 
     function closeCreatePopup(event) {
+        const currentIcon = document.querySelector('.react-datalist-input__textbox').value
+        const currentActivity = document.querySelector('#activity').value
+        const datePos = dateList.indexOf(clickedDate)
+
+        if (event.target.innerText === "Behold det gamle") {
+            setCreatePopUp(false)
+        }
+
         if (event.target.innerText === "Lukk") {
             setCreatePopUp(false)
-            setActivity()
-            setIcon()
         } 
 
-        if ((!activity && icon) || (activity && !icon)) {
+        if (currentActivity && currentIcon) {
+            openWarning("ingen endring")
+        } else if ((!currentActivity && currentIcon) || (currentActivity && currentIcon === '')) {
             openWarning("tilbake")
         } else {
+            if (customMadeData[datePos] && !currentActivity && !currentIcon) {
+                console.log(customMadeData[datePos].id, customMadeData[datePos].activity, customMadeData[datePos].icon )
+                setCustomMadeData((prevState) => 
+                    prevState.filter((prevItem) => prevItem != customMadeData[datePos]))
+                document.querySelector(".mini-calendar").children[dateList[datePos]-1].classList.remove("date-completed")
+                setDateList(dateList.filter(function(item) {
+                    return item !== clickedDate
+                }))
+            }
+
+            if (!currentActivity && !currentIcon && dateList.includes(clickedDate)) {
+                dateList.pop()
+            }
             setCompleteDate(true)
             setCreatePopUp(false)
-            dateList.pop()
+            /* setActivity()
+            setIcon() */
         }
+        setShowExamples(false)
     }
 
     function closePopup() {
@@ -176,9 +208,15 @@ export default function SettingsPage() {
     }
 
     function openWarning(string) {
+        console.log("2")
         if (string === "tilbake") {
             document.querySelector(".warning").style.display = "block"
             setCompleteDate(true)
+        } else if (string === "ingen endring") {
+            document.querySelector(".no-change-warning").style.display = "block"
+        } else if (string === "no complete change") {
+            console.log("3")
+            document.querySelector(".no-complete-change-warning").style.display = "block"
         } else {
             document.querySelector(".add-warning").style.display = "block"
         }
@@ -188,15 +226,23 @@ export default function SettingsPage() {
     function closeWarning() {
         document.querySelector(".warning").style.display = "none"
         document.querySelector(".add-warning").style.display = "none"
+        document.querySelector(".no-change-warning").style.display = "none"
+        document.querySelector(".no-complete-change-warning").style.display = "none"
         setCompleteDate(false)
     }
 
     function openExamples() {
         setShowExamples(true)
+        document.querySelector('.create-popup').style.transform = 'translateX(-100px)'
     }
 
     function closeExamples() {
         setShowExamples(false)
+        document.querySelector('.create-popup').style.transform = 'translateX(100px)'
+    }
+
+    function showChooseWarning() {
+        setChooseWarning(prevState => !prevState)
     }
 
     localStorage.setItem('custom-data', JSON.stringify(customMadeData))
@@ -215,14 +261,30 @@ export default function SettingsPage() {
                         <h4>Velg kategori:</h4>
                         <Dropdown onChange={selectCategory}/>
                     </div>
-                    <Link 
-                        className='link-button settings-btn' 
-                        relative='path' 
-                        to='../calendar'
-                        state={{
-                            search: `?${category}`
-                        }}
-                    >Vis kalender</Link>
+                    {category ? 
+                        <Link 
+                            className='link-button settings-btn' 
+                            relative='path' 
+                            to='../calendar'
+                            state={{
+                                search: `?${category}`
+                            }}
+                        >Vis kalender</Link>
+                    : 
+                        <Link 
+                            className='link-button settings-btn' 
+                            onClick={showChooseWarning}
+                        >Vis kalender</Link>
+                    }
+                    {chooseWarning && 
+                        <div className='choose-warning'>
+                            <span className='close-button' onClick={showChooseWarning}>
+                                &times;
+                            </span>
+                            <p>Du må velge kategori før du kan se kalender.</p>
+                            <p className='choose-icon'>🎅</p>  
+                        </div>
+                    }
                 </div>
                 <button className='back-btn' onClick={goBack}>Tilbake</button>
                 <div className='make-own-container'>
@@ -239,30 +301,32 @@ export default function SettingsPage() {
                         }}
                     >Vis kalender</Link>
                 </div>
-                {createPopUp && <div className='settings-popup create-popup'>
-                    <h4>Legg til aktivitet for {clickedDate}. desember</h4>
-                    {dateList.includes(clickedDate) && customMadeData[dateList.indexOf(clickedDate)] ? 
-                        <div className='input-trio'>
-                            <div className='input-pair activity'>
-                                <label htmlFor="activity">Fyll inn aktivitet: </label>
-                                <div className='tooltip-text'>
-                                    <p>Skriv inn en aktivitet som skal utføres denne datoen.</p>
+                {createPopUp && <div className='pop-up-container'>
+                    <div className='settings-popup create-popup'>
+                        <h4>Legg til aktivitet for {clickedDate}. desember</h4>
+                        {dateList.includes(clickedDate) && customMadeData[dateList.indexOf(clickedDate)] ? 
+                            <div className='input-trio'>
+                                <div className='input-pair activity'>
+                                    <label htmlFor="activity">Fyll inn aktivitet: </label>
+                                    <FaCircleInfo className='info-btn'/>
+                                    <div className='tooltip-text'>
+                                        <p>Skriv inn en aktivitet som skal utføres denne datoen. Klikk på "se eksempler" for å få inspirasjon.</p>
+                                    </div>
                                 </div>
+                                <Link
+                                    target='_blank' 
+                                    to='../activity-examples'
+                                    className='examples-link'
+                                >Se eksempler</Link>
+                                <textarea type="text" id='activity' name="activity" autoComplete='off' onChange={(text) => setActivity(text.target.value)} defaultValue={activity}/>
                             </div>
-                            <Link
-                                target='_blank' 
-                                to='../activity-examples'
-                                className='examples-link'
-                            >Se eksempler</Link>
-                            <textarea type="text" id='activity' name="activity" autoComplete='off' onChange={(text) => setActivity(text.target.value)} defaultValue={activity}/>
-                        </div>
                         :
                         <div className='input-trio'>
                             <div className='input-pair activity'>
                                 <label htmlFor="activity">Fyll inn aktivitet: </label>
                                 <FaCircleInfo className='info-btn'/>
                                 <div className='tooltip-text'>
-                                    <p>Skriv inn en aktivitet som skal utføres denne datoen.</p>
+                                    <p>Skriv inn en aktivitet som skal utføres denne datoen. Klikk på "se eksempler" for å få inspirasjon.</p>
                                 </div>
                             </div>
                             <button
@@ -271,53 +335,63 @@ export default function SettingsPage() {
                             >Se eksempler</button>
                             <textarea type="text" id='activity' name="activity" autoComplete='off' onChange={(text) => setActivity(text.target.value)}/>
                         </div>
-                        
-                    }   
-                    {dateList.includes(clickedDate) && customMadeData[dateList.indexOf(clickedDate)] ?
-                        <div className='input-pair datalist'>
-                            <DatalistInput
-                            className='datalist-icons' 
-                            label="Velg ikon: "
-                            onSelect={(item) => setIcon(item.value)}
-                            items={iconElements}
-                            value={icon}
-                            />
-                            <FaCircleInfo className='info-btn'/>
-                            <div className='tooltip-text'>
-                                <p>Velg et ikon som skal vises med aktiviteten.</p>
+                        }   
+                        {dateList.includes(clickedDate) && customMadeData[dateList.indexOf(clickedDate)] ?
+                            <div className='input-pair datalist'>
+                                <DatalistInput
+                                className='datalist-icons' 
+                                label="Velg ikon: "
+                                onSelect={(item) => setIcon(item.value)}
+                                items={iconElements}
+                                value={icon}
+                                />
+                                <FaCircleInfo className='info-btn'/>
+                                <div className='tooltip-text'>
+                                    <p>Velg et ikon som skal vises med aktiviteten. Velg fra lista ved å klikke i input-feltet, eller lim inn et eget ikon.</p>
+                                </div>
                             </div>
-                        </div>
+                                
+                            :
+                            <div className='input-pair datalist'>
+                                <DatalistInput
+                                className='datalist-icons' 
+                                label="Velg ikon:"
+                                onSelect={(item) => setIcon(item.value)}
+                                items={iconElements}
+                                />
+                                <FaCircleInfo className='info-btn'/>
+                                <div className='tooltip-text'>
+                                    <p>Velg et ikon som skal vises med aktiviteten. Velg fra lista ved å klikke i input-feltet, eller lim inn et eget ikon.</p>
+                                </div>
+                            </div>
                             
-                        :
-                        <div className='input-pair datalist'>
-                            <DatalistInput
-                            className='datalist-icons' 
-                            label="Velg ikon:"
-                            onSelect={(item) => setIcon(item.value)}
-                            items={iconElements}
-                            />
-                            <FaCircleInfo className='info-btn'/>
-                            <div className='tooltip-text'>
-                                <p>Velg et ikon som skal vises med aktiviteten.</p>
-                            </div>
+                        }
+                        <div className='popup-btn-div'>
+                            <button className='popup-btn' onClick={closeCreatePopup}>Tilbake</button>    
+                            <button className='popup-btn' onClick={addActivity}>Legg til</button>
                         </div>
-                        
-                    }
-                    <div className='popup-btn-div'>
-                        <button className='popup-btn' onClick={closeCreatePopup}>Tilbake</button>    
-                        <button className='popup-btn' onClick={addActivity}>Legg til</button>
-                    </div>
-                    <div className='warning' style={{display: 'none'}}>
-                        <p>Dataene dine vil ikke bli lagret dersom du går tilbake.</p>
-                        <button onClick={closeWarning}>Fortsett redigering</button>
-                        <button onClick={closeCreatePopup}>Lukk</button>
-                    </div>
-                    <div className='warning add-warning' style={{display: 'none'}}>
-                        <p>Du må både skrive inn aktivitet og velge ikon.</p>
-                        <button onClick={closeWarning}>Ok</button>
+                        <div className='warning' style={{display: 'none'}}>
+                            <p>Dataene dine vil ikke bli lagret dersom du går tilbake.</p>
+                            <button onClick={closeWarning}>Fortsett redigering</button>
+                            <button onClick={closeCreatePopup}>Lukk</button>
+                        </div>
+                        <div className='warning add-warning' style={{display: 'none'}}>
+                            <p>Du må både skrive inn aktivitet og velge ikon.</p>
+                            <button onClick={closeWarning}>Ok</button>
+                        </div>
+                        <div className='warning no-change-warning' style={{display: 'none'}}>
+                            <p>Du har ikke gjort noen endringer.</p>
+                            <button onClick={closeWarning}>Fortsett redigering</button>
+                            <button onClick={closeCreatePopup}>Behold det gamle</button>
+                        </div>
+                        <div className='warning no-complete-change-warning' style={{display: 'none'}}>
+                            <p>Du har ikke fullført endringen.</p>
+                            <button onClick={closeWarning}>Fortsett redigering</button>
+                            <button onClick={closeCreatePopup}>Behold det gamle</button>
+                        </div>
                     </div>
                 </div>}
-                {popUp && 
+                {popUp && <div className='pop-up-container'>
                     <div className='settings-popup date-popup'>
                         <h4>{customMadeData[dateList.indexOf(clickedDate)].id}. desember</h4>
                         <p className='date-activity'>{customMadeData[dateList.indexOf(clickedDate)].activity}</p>
@@ -328,6 +402,7 @@ export default function SettingsPage() {
                             <button className='popup-btn' onClick={closePopup}>Lukk</button>
                         </div>
                     </div>
+                </div>
                 }
                 {showExamples && 
                 <div className='examples-popup'>

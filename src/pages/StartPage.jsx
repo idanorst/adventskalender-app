@@ -48,11 +48,18 @@ export default function StartPage() {
                     relative='path'
                     className='link-button link--visit'
                 >Se kalender</Link>}
+                {(calendarCreated && JSON.parse(localStorage.getItem('custom-data')).length === 24)? 
+                <Link
+                to='../shared'
+                relative='path'
+                className='link-button link--share'
+                >Se delt kalender</Link>
+                :
                 <Link
                     to='../createShared'
                     relative='path'
                     className='link-button link--share'
-                >Se delt kalender</Link>
+                >Se delt kalender</Link>}
             </div>
             
         </div>
