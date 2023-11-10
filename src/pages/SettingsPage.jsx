@@ -124,7 +124,7 @@ export default function SettingsPage() {
 
         if ((!currentActivity || !currentIcon) && customMadeData[datePos]) {
             console.log("hdk")
-            if (customMadeData[datePos] === clickedDate) {
+            if (dateList[datePos] === clickedDate) {
                 openWarning("no complete change")
                 return
             } 
@@ -135,7 +135,6 @@ export default function SettingsPage() {
             return
         }
         
-
         // Create element from the data
         const activityObject = {
             id: clickedDate,
@@ -191,8 +190,6 @@ export default function SettingsPage() {
             }
             setCompleteDate(true)
             setCreatePopUp(false)
-            /* setActivity()
-            setIcon() */
         }
         setShowExamples(false)
     }

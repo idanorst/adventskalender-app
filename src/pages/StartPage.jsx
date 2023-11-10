@@ -48,7 +48,7 @@ export default function StartPage() {
                     relative='path'
                     className='link-button link--create'
                 >Lag kalender</Link>}
-                {!(calendarCreated && JSON.parse(localStorage.getItem('calendar-data')).length === 24) &&
+                {!(calendarCreated && JSON.parse(localStorage.getItem('calendar-data'))) &&
                 <Link
                     to='../createShared'
                     relative='path'
