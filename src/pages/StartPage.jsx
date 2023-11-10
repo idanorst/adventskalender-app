@@ -26,17 +26,6 @@ export default function StartPage() {
                 <Alert type='view-error' message='Du har jo allerede laget en kalender. Ta heller en titt på den du.' onClick={showViewAlert} />}
                 {showCreateWarning && 
                 <Alert type='create-error' message='Du har jo ikke laget noen kalender enda. Ta og gjør det først du.' onClick={showCreateAlert} />}
-                {calendarCreated ? 
-                <Link 
-                onClick={showViewAlert}
-                className='link-button link--create'
-                >Lag kalender</Link>
-                : 
-                <Link 
-                    to='../createCalendar'
-                    relative='path'
-                    className='link-button link--create'
-                >Lag kalender</Link>}
                 {!calendarCreated ? 
                 <Link 
                     onClick={showCreateAlert}
@@ -48,20 +37,32 @@ export default function StartPage() {
                     relative='path'
                     className='link-button link--visit'
                 >Se kalender</Link>}
-                {(calendarCreated && JSON.parse(localStorage.getItem('custom-data')).length === 24)? 
-                <Link
-                to='../shared'
-                relative='path'
-                className='link-button link--share'
-                >Se delt kalender</Link>
-                :
+                {calendarCreated ? 
+                <Link 
+                onClick={showViewAlert}
+                className='link-button link--create'
+                >Lag kalender</Link>
+                : 
+                <Link 
+                    to='../createCalendar'
+                    relative='path'
+                    className='link-button link--create'
+                >Lag kalender</Link>}
+                {!(calendarCreated && JSON.parse(localStorage.getItem('calendar-data')).length === 24) &&
                 <Link
                     to='../createShared'
                     relative='path'
                     className='link-button link--share'
-                >Se delt kalender</Link>}
+                >Åpne delt kalender</Link>}
             </div>
             
         </div>
     )
 }
+
+{/* <Link
+                to='../shared'
+                relative='path'
+                className='link-button link--share'
+                >Åpne delt kalender</Link>
+                : */}

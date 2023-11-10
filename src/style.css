@@ -88,6 +88,7 @@ body {
 .link--share {
   background-color: rgb(87, 38, 37);
   color: var(--START-PAGE-BUTTON-COLOR);
+  width: 160px;
 }
 
 .link--share:hover {

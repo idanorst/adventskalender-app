@@ -20,7 +20,8 @@ export default function CalenderPage() {
     ]
     
     const calendarCreated = localStorage.getItem('calendarCreated')
-    const customMadeData= JSON.parse(localStorage.getItem('custom-data')) || []
+    const customMadeData = JSON.parse(localStorage.getItem('custom-data')) || JSON.parse(localStorage.getItem('calendar-data')) || []
+    const customCreated = JSON.parse(localStorage.getItem('custom-data'))
     const [idList, setIdList] = React.useState(JSON.parse(localStorage.getItem('idList')) || [])
     const [ day ] = useOutletContext()
     const [date, setDate] = React.useState()
@@ -57,8 +58,10 @@ export default function CalenderPage() {
 
     function restoreCalendarData() {
         const calendarElements = []
+        console.log(customMadeData)
         if (customMadeData.length === 24) {
-            for (let i = 0; i < idList.length; i++) {
+            for (let i = 0; i < 24; i++) {
+                console.log(i)
                 calendarElements.push(
                     <CalendarBox 
                         id={customMadeData[i].id} 
@@ -69,8 +72,9 @@ export default function CalenderPage() {
                     />
                 )
             }
+            console.log(calendarElements)
         } else {
-            for (let i = 0; i < idList.length; i++) {
+            for (let i = 0; i < 24; i++) {
                 calendarElements.push(
                     <CalendarBox 
                         id={idList[i]} 
@@ -345,7 +349,7 @@ export default function CalenderPage() {
                 </div>}
                 {calendarData}
             </div>
-            <button className='share-btn' onClick={shareCalendar}>Del 🔗</button>
+            {customCreated && <button className='share-btn' onClick={shareCalendar}>Del 🔗</button>}
             {sharePopup && <div className='pop-up-container'>
                 <div className='share-popup'>
                     <span className='close-button' onClick={closeShare}>
