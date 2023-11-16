@@ -7,7 +7,6 @@ import DatalistInput from 'react-datalist-input'
 import { FaCircleInfo } from 'react-icons/fa6'
 /* import { saveAs } from 'file-saver' */
 import ActivityExamples from './ActivityExamples'
-import { act } from '@testing-library/react'
 
 export default function SettingsPage() {
     const [category, setCategory] = React.useState()
@@ -19,7 +18,7 @@ export default function SettingsPage() {
     const [clickedDate, setClickedDate] = React.useState()
     const [activity, setActivity] = React.useState()
     const [icon, setIcon] = React.useState()
-    const [completeDate, setCompleteDate] = React.useState(false)
+    /* const [completeDate, setCompleteDate] = React.useState(false) */
     const [showExamples, setShowExamples] = React.useState(false)
     const [chooseWarning, setChooseWarning] = React.useState(false)
 
@@ -68,7 +67,7 @@ export default function SettingsPage() {
         if (customMadeData.length === 24) {
             setCalendarComplete(true)
         }
-    },[])
+    },[customMadeData.length])
 
     const iconElements = []
     for (let i = 0; i < icons.length; i++) {
@@ -100,7 +99,7 @@ export default function SettingsPage() {
     }
 
     function openCreatePopUp() {
-        setCompleteDate(false)
+        /* setCompleteDate(false) */
         const datePos = dateList.indexOf(clickedDate)
         if (customMadeData[datePos]) {
             console.log("already in list")
@@ -118,9 +117,9 @@ export default function SettingsPage() {
         const currentIcon = document.querySelector(".react-datalist-input__textbox").value
         const datePos = dateList.indexOf(clickedDate)
 
-        if (currentActivity && currentIcon) {
+        /* if (currentActivity && currentIcon) {
             setCompleteDate(true)
-        }
+        } */
 
         if ((!currentActivity || !currentIcon) && customMadeData[datePos]) {
             console.log("hdk")
@@ -152,7 +151,7 @@ export default function SettingsPage() {
 
         document.querySelector(".mini-calendar").children[clickedDate-1].classList.add("date-completed")
         setCreatePopUp(false)
-        setCompleteDate(false)
+        /* setCompleteDate(false) */
         /* setActivity()
         setIcon() */
     }
@@ -178,7 +177,7 @@ export default function SettingsPage() {
             if (customMadeData[datePos] && !currentActivity && !currentIcon) {
                 console.log(customMadeData[datePos].id, customMadeData[datePos].activity, customMadeData[datePos].icon )
                 setCustomMadeData((prevState) => 
-                    prevState.filter((prevItem) => prevItem != customMadeData[datePos]))
+                    prevState.filter((prevItem) => prevItem !== customMadeData[datePos]))
                 document.querySelector(".mini-calendar").children[dateList[datePos]-1].classList.remove("date-completed")
                 setDateList(dateList.filter(function(item) {
                     return item !== clickedDate
@@ -188,7 +187,7 @@ export default function SettingsPage() {
             if (!currentActivity && !currentIcon && dateList.includes(clickedDate)) {
                 dateList.pop()
             }
-            setCompleteDate(true)
+            /* setCompleteDate(true) */
             setCreatePopUp(false)
         }
         setShowExamples(false)
@@ -208,7 +207,7 @@ export default function SettingsPage() {
         console.log("2")
         if (string === "tilbake") {
             document.querySelector(".warning").style.display = "block"
-            setCompleteDate(true)
+            /* setCompleteDate(true) */
         } else if (string === "ingen endring") {
             document.querySelector(".no-change-warning").style.display = "block"
         } else if (string === "no complete change") {
@@ -225,7 +224,7 @@ export default function SettingsPage() {
         document.querySelector(".add-warning").style.display = "none"
         document.querySelector(".no-change-warning").style.display = "none"
         document.querySelector(".no-complete-change-warning").style.display = "none"
-        setCompleteDate(false)
+        /* setCompleteDate(false) */
     }
 
     function openExamples() {
@@ -249,7 +248,7 @@ export default function SettingsPage() {
         <div className='settings-page'>
             <div className='info-div'>
                 <h3>Lag en kalender</h3>
-                <p>Her kan du lage din egen adventskalender. Du kan enten velge mellom fire kategorier i dropdown-menyen, som setter sammen en kalender basert på kategorien du velger. Kategoriene du kan velge mellom er <span className='italic'>familieaktiviteter</span>, <span className='italic'>fysiske utfordringer</span>, <span className='italic'>kulinariske aktiviteter</span> og <span className='italic'>god blanding</span>.</p>
+                <p>Her kan du lage din egen adventskalender. Du kan velge mellom fire kategorier i dropdown-menyen, som setter sammen en kalender basert på kategorien du velger. Kategoriene du kan velge mellom er <span className='italic'>familieaktiviteter</span>, <span className='italic'>fysiske utfordringer</span>, <span className='italic'>kulinariske aktiviteter</span> og <span className='italic'>god blanding</span>.</p>
                 <p>Alternativ to er at du selv fyller inn kalenderaktiviteter etter eget ønske. Her vil det også være mulig å velge mellom aktiviteter som allerede ligger i databasen.</p>
             </div>
             <div className='options-div'>
@@ -297,6 +296,9 @@ export default function SettingsPage() {
                             search: '?customMade'
                         }}
                     >Vis kalender</Link>
+                    <div className='tooltip-text'>
+                        <p>Du må fylle ut alle de 24 lukene før du kan se kalenderen.</p>
+                    </div>
                 </div>
                 {createPopUp && <div className='pop-up-container'>
                     <div className='settings-popup create-popup'>

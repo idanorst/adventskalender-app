@@ -30,8 +30,8 @@ export default function Layout() {
                 {(windowWidth > 410 && windowWidth < 1000) && <h2>🎄</h2>}
                 {windowWidth > 1000 && <h2>🎄🎄</h2>}
                 <h2>{(day === 24) ? 'Juleaften' : `${day} ${stringifiedMonth}`}</h2>
-                {windowWidth >= 375 && <h2>🎄🎅🎄</h2>}
-                {windowWidth < 375 && <h2>🎄🎄</h2>}
+                {windowWidth >= 410 && <h2>🎄🎅🎄</h2>}
+                {windowWidth < 410 && <h2>🎄🎄</h2>}
                 <h2>Dager igjen til jul: {daysUntilChristmas} </h2>
                 {(windowWidth > 410 && windowWidth < 1000) && <h2>🎄</h2>}
                 {windowWidth > 1000 && <h2>🎄🎄</h2>}

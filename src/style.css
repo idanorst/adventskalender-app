@@ -390,9 +390,13 @@ body {
 }
 
 .make-own-container .not-clickable {
-  pointer-events: none;
+  cursor: not-allowed;
   background-color: rgba(3, 125, 9, 0.201);
   opacity: 0.8;
+}
+
+.not-clickable:active{
+  pointer-events: none;
 }
 
 .make-own-container:focus, 
@@ -538,11 +542,23 @@ body {
   /* bottom: 115px; */
 }
 
+.make-own-container > .tooltip-text {
+  display: none;
+  color: black;
+  height: 100px;
+  bottom: 55px;
+  right: -15px;
+}
+
 .tooltip-text p {
   margin-bottom: 1rem;
 }
 
 .info-btn:hover ~ .tooltip-text {
+  display: block;
+}
+
+.not-clickable:hover ~ .tooltip-text {
   display: block;
 }
 
@@ -588,7 +604,7 @@ body {
 .react-datalist-input__listbox {
   position: absolute;
   top: -120px;
-  right: -75px;
+  right: -105px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   background-color: white;
@@ -608,10 +624,16 @@ body {
 
 .react-datalist-input__listbox-option:hover {
   background-color: lightgrey;
+  border-radius: 5px;
 }
 
 .react-datalist-input__listbox-option:active {
   color: grey;
+}
+
+.react-datalist-input__listbox mark {
+  background-color: rgb(162, 162, 162);
+  border-radius: 5px;
 }
 
 .date-popup {
@@ -1027,9 +1049,22 @@ input[type=checkbox] {
 
 /* MEDIA QUERIES */
 @media screen and (min-width: 375px) {
+  body {
+    height: 140vh;
+  }
+
   .top-row {
     font-size: 0.8rem;
-    padding-right: 0.4rem;
+    padding-right: 1rem;
+  }
+
+  .options-div {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .settings-page--container {
+    margin-bottom: 1rem;
   }
 
   .calendar-box {
