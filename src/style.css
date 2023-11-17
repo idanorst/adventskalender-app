@@ -1335,6 +1335,11 @@ input[type=checkbox] {
     font-size: 2.5rem;
   }
 
+  .pop-up {
+    height: 350px;
+    width: 300px;
+  }
+
   .share-btn {
     top: 750px;
     right: 25px;
