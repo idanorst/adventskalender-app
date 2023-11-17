@@ -280,7 +280,7 @@ export default function SettingsPage() {
                             <span className='close-button' onClick={showChooseWarning}>
                                 &times;
                             </span>
-                            <p>Du må velge kategori før du kan se kalender.</p>
+                            <p>Du må velge kategori før du kan se kalenderen.</p>
                             <p className='choose-icon'>🎅</p>  
                         </div>
                     }

@@ -750,7 +750,7 @@ body {
 .calendar-page--container {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin: 0;
 }
 
@@ -1281,7 +1281,7 @@ input[type=checkbox] {
   }
 }  */
 
-@media screen and (min-width: 790px) {
+@media screen and (min-width: 790px) and (max-width: 940px) {
   .home-link {
     font-size: 2rem;
   }
@@ -1330,8 +1330,8 @@ input[type=checkbox] {
   }
 
   .calendar-box {
-    height: 100px;
-    width: 100px;
+    height: 70px;
+    width: 70px;
     font-size: 2.5rem;
   }
 
@@ -1357,10 +1357,10 @@ input[type=checkbox] {
     font-size: 2.5rem;
   }
 
-  .calendar-box {
-    height: 130px;
-    width: 120px;
-  }
+  /* .calendar-box {
+    height: 100px;
+    width: 100px;
+  } */
 
   .alert {
     width: 400px;

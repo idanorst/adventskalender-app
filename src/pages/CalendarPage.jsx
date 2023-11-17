@@ -9,7 +9,7 @@ import CalendarBox from '../components/CalendarBox'
 import { saveAs } from 'file-saver'
 
 export default function CalenderPage() {
-    document.querySelector("body").style.overflow = "hidden"
+    /* document.querySelector("body").style.overflow = "hidden" */
 
     let randomNumbers = [
         60, 10, 64, 30, 22, 51, 1, 8, 39, 36, 62, 50, 18, 25, 

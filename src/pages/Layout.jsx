@@ -12,7 +12,7 @@ export default function Layout() {
     const date = new Date()
     const day = date.getDate()
     /* const day = 24 */
-    const month = 11
+    const month = date.getMonth()
     const stringifiedMonth = months[month]
 
     const christmas = new Date('12/24/2023')
@@ -29,7 +29,7 @@ export default function Layout() {
                 <Link path='realtive' to='..' className='home-link'>🏠</Link>
                 {(windowWidth > 410 && windowWidth < 1000) && <h2>🎄</h2>}
                 {windowWidth > 1000 && <h2>🎄🎄</h2>}
-                <h2>{(day === 24) ? 'Juleaften' : `${day} ${stringifiedMonth}`}</h2>
+                <h2>{(day === 24) ? 'Juleaften' : `${day}. ${stringifiedMonth}`}</h2>
                 {windowWidth >= 410 && <h2>🎄🎅🎄</h2>}
                 {windowWidth < 410 && <h2>🎄🎄</h2>}
                 <h2>Dager igjen til jul: {daysUntilChristmas} </h2>
