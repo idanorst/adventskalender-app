@@ -229,7 +229,10 @@ export default function SettingsPage() {
 
     function openExamples() {
         setShowExamples(true)
-        document.querySelector('.create-popup').style.transform = 'translateX(-100px)'
+        if (window.innerWidth > 600) {
+            document.querySelector('.create-popup').style.transform = 'translateX(-100px)'
+        }
+        
     }
 
     function closeExamples() {
