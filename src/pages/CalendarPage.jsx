@@ -23,7 +23,7 @@ export default function CalenderPage() {
     const customMadeData = JSON.parse(localStorage.getItem('custom-data')) || JSON.parse(localStorage.getItem('calendar-data')) || []
     const customCreated = JSON.parse(localStorage.getItem('custom-data'))
     const [idList, setIdList] = React.useState(JSON.parse(localStorage.getItem('idList')) || [])
-    const [ day ] = useOutletContext()
+    const [ day, month ] = useOutletContext()
     const [date, setDate] = React.useState()
     const location = useLocation()
     const [calendarData, setCalendarData] = React.useState(setData)
@@ -35,6 +35,8 @@ export default function CalenderPage() {
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     
     const [wrongDate, setWrongDate] = React.useState()
+
+    console.log(month)
 
 
     function setData() {
@@ -50,7 +52,7 @@ export default function CalenderPage() {
 
     function setTodaysDate(data) {
         for (let i = 0; i < data.length; i++) {
-            if (parseInt(data[i].props.date) === day) {
+            if (parseInt(data[i].props.date) === day/*  && month === 11 */) {
                 setDate(data[i])
             }
         }
@@ -61,7 +63,6 @@ export default function CalenderPage() {
         console.log(customMadeData)
         if (customMadeData.length === 24) {
             for (let i = 0; i < 24; i++) {
-                console.log(i)
                 calendarElements.push(
                     <CalendarBox 
                         id={customMadeData[i].id} 

@@ -151,6 +151,7 @@ export default function SettingsPage() {
 
         document.querySelector(".mini-calendar").children[clickedDate-1].classList.add("date-completed")
         setCreatePopUp(false)
+        setShowExamples(false)
         /* setCompleteDate(false) */
         /* setActivity()
         setIcon() */

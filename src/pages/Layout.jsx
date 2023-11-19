@@ -24,7 +24,7 @@ export default function Layout() {
 
     return (
         <div className='container'>
-            <Snowfall style={{zIndex: '100'}}/>
+            <Snowfall style={{zIndex: '100', height: '800px'}}/>
             <div className='top-row'>
                 <Link path='realtive' to='..' className='home-link'>🏠</Link>
                 {(windowWidth > 410 && windowWidth < 1000) && <h2>🎄</h2>}
@@ -36,7 +36,7 @@ export default function Layout() {
                 {(windowWidth > 410 && windowWidth < 1000) && <h2>🎄</h2>}
                 {windowWidth > 1000 && <h2>🎄🎄</h2>}
             </div>
-            <Outlet context ={[day]}/>
+            <Outlet context ={[day, month]}/>
         </div>
     )
 }

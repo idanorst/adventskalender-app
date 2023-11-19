@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 
 export default function SharedCalendar() {
-    document.querySelector("body").style.overflow = "hidden"
+    /* document.querySelector("body").style.overflow = "hidden" */
     const [item, setItem] = React.useState()
     const calendarCreated = localStorage.getItem('calendar-created')
     const [ day ] = useOutletContext()
