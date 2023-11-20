@@ -19,14 +19,13 @@
 body {
   background: var(--BG-COLOR);
   font-family: var(--FONT-FAMILY);
-  height: 100%;
-  /* overflow: hidden; */
+  height: 100vh;
 }
 
 .container {
   background: var(--BG-COLOR);
   width: 100%;
-  height: 100%;
+  height: 500px;  
 }
 
 .italic {
@@ -136,7 +135,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
+  max-height: 800px;
 }
 
 .start-page--info {
@@ -145,6 +145,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  max-height: 800px;
   width: 480px;
   background-image: url('./assets/images/BG1.jpg');
   background-position: top;
@@ -1053,7 +1054,6 @@ input[type=checkbox] {
 @media screen and (min-width: 375px) and (max-width: 600px){
   body {
     height: 140vh;
-    /* overflow-y: auto; */
   }
 
   .top-row {
@@ -1110,7 +1110,6 @@ input[type=checkbox] {
   }
 
   .calendar-page--content {
-    /* padding-top: 0; */
     padding-bottom: 6rem;
     grid-gap: 0;
   }
@@ -1129,164 +1128,30 @@ input[type=checkbox] {
   }
 }
 
-/* @media screen and (min-width: 410px) {
+@media screen and (min-width: 400px) {
   .top-row {
-    height: 3rem;
-    padding-right: 0.5rem;
+    font-size: 1rem;
   }
 
-  .top-row h2 {
-    font-size: 1.2rem;
-  }
-
-  .calendar-page--content {
-    grid-gap: 1rem;
-  }
-
-  .calendar-box {
-    width: 70px;
-    height: 70px;
-    margin: 0;
-    justify-self: center;
-  }
-} */
-
-/* @media screen and (min-width: 520px) {
-  .calendar-page--container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    overflow: auto;
-    height: 90vh;
-  }
-
-    .top-row {
-      height: 4rem;
-      padding-right: 0.7rem;
-    }
-
-    .top-row h2 {
-      font-size: 1.4rem;
-    }
-
-    .home-link {
-      font-size: 1.8rem;
-      margin: 0 1rem 0.3rem 0.5rem;
-    }
-
-    .calendar-page--content {
-      grid-template: 1fr 1fr 1fr 1fr 1fr / 1fr 1fr 1fr 1fr 1fr;
-      width: 100%;
-      height: 100%;
-    }
-
-    .calendar-box {
-      width: 75px;
-      height: 75px;
-      justify-self: center;
-      align-self: center;
-    }
-
-    .pop-up {
-      top: 60%;
-      left: 0;
-      right: 0;
-      margin: auto;
-      width: 350px;
-      height: 350px;
-    }
-
-    .pop-up h2 {
-      font-size: 2rem;
-    }
-
-    .pop-up h4 {
-      font-size: 1.5rem;
-    }
-
-    .pop-up--activity {
-      font-size: 1.1rem;
-    }
-
-    .pop-up .icon {
-      font-size: 3rem;
-    }
-
-    .warning-pop-up {
-      top: 60%;
-      left: 0;
-      right: 0;
-      margin: auto;
-    }
-
-    .warning-pop-up h2 {
-      font-size: 1.7rem;
-    }
-}  */
-
-/* @media screen and (min-width: 640px) {
-  .calendar-box {
-    height: 75px;
-    width: 75px;
-  }
-
-  .top-row {
-    height: 5rem;
-  }
-
-  .top-row h2 {
-    font-size: 1.6rem;
-  }
-
-  .pop-up {
-    width: 400px;
-    height: 400px;
-  }
-
-  .pop-up--activity {
-    font-size: 1.2rem;
-  }
-
-  .pop-up .icon {
-    font-size: 4rem;
-  }
-
-  .checkbox-container p {
-    font-size: 1.2rem;
-  }
-
-  .warning-pop-up h2 {
-    margin-top: 4rem;
-  }
-
-  .warning-icon {
-    font-size: 5rem;
-  }
-
-  .checkbox-container {
-    margin-top: 0.2rem;
+  .home-link {
+    margin-right: 9rem;
   }
 }
 
-@media screen and (min-width: 700px) {
-  .top-row h2 {
-    font-size: 1.8rem;
-  }
-
+@media screen and (min-width: 500px) {
   .home-link {
-    font-size: 1.8rem;
-    margin: 0 1rem 0.2rem 0.5rem;;
+    margin-right: 10rem;
   }
-
-  .calendar-box {
-    height: 85px;
-    width: 85px;
-  }
-}  */
+}
 
 @media screen and (min-width: 790px) and (max-width: 940px) {
+  .top-row {
+    font-size: 1.2rem;
+  }
+
   .home-link {
     font-size: 2rem;
+    margin-right: 5rem;
   }
 
   .calendar-page--content {
@@ -1310,7 +1175,7 @@ input[type=checkbox] {
   }
 
   .top-row h2 {
-    font-size: 2.1rem;
+    font-size: 1.7rem;
   }
 
   .top-row h2:last-child {
@@ -1319,6 +1184,10 @@ input[type=checkbox] {
 
   .home-link {
     font-size: 2.3rem;
+  }
+
+  .start-page--container {
+    height: 545px;
   }
 
   .calendar-page--container {
@@ -1333,8 +1202,8 @@ input[type=checkbox] {
   }
 
   .calendar-box {
-    height: 70px;
-    width: 70px;
+    height: 90px;
+    width: 90px;
     font-size: 2.5rem;
   }
 
@@ -1344,13 +1213,19 @@ input[type=checkbox] {
   }
 
   .share-btn {
-    top: 750px;
-    right: 25px;
-    bottom: 10px;
+    top: 580px;
+    right: 0;
   }
 } 
 
 @media screen and (min-width: 1140px) {
+  .top-row h2 {
+    font-size: 2.5rem;
+  }
+  .start-page--container {
+    height: 624px;
+  }
+
   .calendar-page--container {
     height: 90vh;
   }
@@ -1361,14 +1236,10 @@ input[type=checkbox] {
     max-width: 1140px;
   }
 
-  .top-row h2 {
-    font-size: 2.5rem;
+  .calendar-box {
+    height: 120px;
+    width: 120px;
   }
-
-  /* .calendar-box {
-    height: 100px;
-    width: 100px;
-  } */
 
   .alert {
     width: 400px;
@@ -1382,14 +1253,111 @@ input[type=checkbox] {
 
   .share-btn {
     position: absolute;
-    top: 780px;
+    top: 750px;
     right: 0;
+    width: 80px;
+    height: 60px;
   }
 } 
 
 @media screen and (min-width: 1270px) {
+  .home-link {
+    margin-right: 10rem;
+  }
+
+  .start-page--container {
+    height: 30rem;
+  }
+
   .calendar-box {
     height: 150px;
     width: 140px;
   }
+
+  .share-btn {
+    width: 100px;
+  }
 }
+
+@media screen and (min-width: 1350px) {
+  .top-row {
+    font-size: 2.5rem;
+  }
+
+  .start-page--container {
+    height: 34rem;
+  }
+
+  .info-div {
+    width: 70rem;
+  }
+
+  .settings-page--container {
+    width: 22rem;
+    height: 18rem;
+  }
+
+  .settings-page--container:hover {
+    width: 24rem;
+    height: 20rem;
+  }
+
+  .make-own-container {
+    width: 22rem;
+    height: 22rem;
+  }
+
+  .make-own-container:hover {
+    width: 24rem;
+    height: 23rem;
+  }
+
+  .back-btn {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (min-width: 1450px) {
+  .start-page--container {
+    height: 39rem;
+  }
+}
+
+@media screen and (min-width: 1550px) {
+  .start-page--container {
+    height: 41rem;
+  }
+
+  .settings-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .info-div {
+    width: 60rem;
+  }
+
+  .settings-page--container {
+    width: 25rem;
+    height: 20rem;
+  }
+
+  .settings-page--container:hover {
+    width: 27rem;
+    height: 22rem;
+  }
+
+  .make-own-container {
+    width: 25rem;
+    height: 25rem;
+  }
+
+  .make-own-container:hover {
+    width: 27rem;
+    height: 27rem;
+  }
+}
+
+

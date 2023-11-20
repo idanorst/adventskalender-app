@@ -7,117 +7,14 @@ import {
 } from 'react-router-dom'
 
 export default function SharedCalendar() {
-    /* document.querySelector("body").style.overflow = "hidden" */
-    const [item, setItem] = React.useState()
-    const calendarCreated = localStorage.getItem('calendar-created')
     const [ day ] = useOutletContext()
     const [date, setDate] = React.useState()
     const [calendarData, setCalendarData] = React.useState(restoreCalendarData)
-    /* const [newCalendarData, setNewCalendarData] = React.useState(createNewCalendarElements) */
     const [earlyDate, setEarlyDate] = React.useState()
     const [showPopup, setShowPopup] = React.useState(false)
     const [showEarlyPopup, setShowEarlyPopup] = React.useState(false)
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     const [wrongDate, setWrongDate] = React.useState()
-    const [showFileSelector, setShowFileSelector] = React.useState(calendarCreated ? false : true)
-    const [showButton, setShowButton] = React.useState(true)
-
-    /* console.log("Rerendering")
-    console.log(newCalendarData )*/
-
-    /* const [, updateState] = React.useState();
-    const forceUpdate = React.useCallback(() => updateState({}), []);
-    
-    React.useEffect(() => {
-        if (!showFileSelector) {
-            console.log("setting data")
-            forceUpdate()
-        }    
-    }, []) */
-    /* let file
-
-    
-    if (document.querySelector('#file-selector')) {
-        console.log("file")
-        file = document.querySelector('#file-selector').files[0]
-    } */
-    
-
-    /* const [dataSet, setDataSet] = React.useState(false) */
-
-    // Getting the calendar-data
-    /* React.useEffect(() => {
-        if (item) {
-            const file = item.target.files[0]
-            var fr = new FileReader()
-            fr.onload = function() {
-                setRecievedCalendarData(fr.result)
-            }
-            fr.readAsText(file)
-        }
-    }, [item]) */
-
-    /* if (recievedCalendarData) {
-        console.log("ok")
-        setCalendarData(setData())
-    } */
-
-   /*  function refreshPage() {
-        window.location.reload(false);
-      } */
-
-    function closeFileSelector() {
-        setShowFileSelector(false)
-
-        /* let calendarElements = []
-        let recievedData
-        const file = item.target.files[0]
-        let fr = new FileReader()
-        fr.onload = function() {
-            recievedData = JSON.parse(fr.result)
-            for (let i = 0; i < 24; i++){
-                calendarElements.push(
-                    <CalendarBox 
-                        id={recievedData[i].id}
-                        key={recievedData[i].id}
-                        date={recievedData[i].id}
-                        data={recievedData[i]}
-                        onClick={calendarBoxClicked}
-                    />
-                )
-            }
-            setTodaysDate(calendarElements)
-            localStorage.setItem('calendar-data', JSON.stringify(recievedData))
-            localStorage.setItem('calendar-created', true)
-            //refreshPage()
-        }
-        fr.readAsText(file) */
-        /* setData() */
-        /* const file = document.querySelector('#file-selector').files[0] */
-        /* let data 
-        let fr = new FileReader()
-        fr.onload = function() {
-            setRecievedCalendarData(fr.result)
-        }
-        fr.readAsText(file) */
-    }
-
-    /* function setData() {
-        let calendarElements = []
-        if (!calendarCreated) {
-            console.log('Creating...')
-            calendarElements = createNewCalendarElements()
-            //setDataSet(true)
-            setCalendarData(calendarElements)
-            forceUpdate()
-        } else if (calendarCreated) {
-            const calendarData = JSON.parse(localStorage.getItem('calendar-data'))
-            calendarElements = restoreCalendarData(calendarData)
-            console.log('Restoring...')
-            //setDataSet(true)
-        } 
-        return calendarElements
-    } */
 
     function setTodaysDate(data) {
         for (let i = 0; i < data.length; i++) {
@@ -142,47 +39,6 @@ export default function SharedCalendar() {
             )
         }
         setTodaysDate(calendarElements)
-        return calendarElements
-    }
-
-    function createNewCalendarElements() {
-        const calendarElements = []
-        console.log(JSON.parse(localStorage.getItem('calendar-data')))
-        /* for (let i = 0; i < recievedCalendarData.length; i++){
-            calendarElements.push(
-                <CalendarBox 
-                    id={recievedCalendarData[i].id}
-                    key={recievedCalendarData[i].id}
-                    date={recievedCalendarData[i].id}
-                    data={recievedCalendarData[i]}
-                    onClick={calendarBoxClicked}
-                />
-            )
-        }
-        setTodaysDate(calendarElements)
-        localStorage.setItem('calendarData', JSON.stringify(calendarElements)) */
-
-        /* let recievedData
-        const file = item.target.files[0]
-        let fr = new FileReader()
-        fr.onload = function() {
-            recievedData = JSON.parse(fr.result)
-            for (let i = 0; i < 24; i++){
-                calendarElements.push(
-                    <CalendarBox 
-                        id={recievedData[i].id}
-                        key={recievedData[i].id}
-                        date={recievedData[i].id}
-                        data={recievedData[i]}
-                        onClick={calendarBoxClicked}
-                    />
-                )
-            }
-            setTodaysDate(calendarElements)
-            localStorage.setItem('calendar-data', JSON.stringify(recievedData))
-            localStorage.setItem('calendar-created', true)
-        }
-        fr.readAsText(file) */
         return calendarElements
     }
 
@@ -238,7 +94,6 @@ export default function SharedCalendar() {
         } else {
             localStorage.setItem(date.props.date, true)
         }
-        
     }
 
     function setEarlyDateChecked() {
@@ -248,7 +103,6 @@ export default function SharedCalendar() {
         } else {
             localStorage.setItem(earlyDate.props.date, true)
         }
-        
     }
 
     function checkIfChecked(date) {
@@ -258,8 +112,6 @@ export default function SharedCalendar() {
             return ''
         }
     }
-
-    
 
     return (
         <div className="calendar-page--container shared-container">
@@ -321,14 +173,6 @@ export default function SharedCalendar() {
                         <p className='warning-icon'>🎅</p>
                     </div>
                 </div>}
-                {/* {showFileSelector && 
-                    <div className="file-selector-popup">
-                        <h3>Last opp aktivitets-fil</h3>
-                        <input id="file-selector" type="file" onChange={(e) => setItem(e)}/>
-                        <button className="add-btn" onClick={closeFileSelector}>Legg til</button>
-                    </div>
-                } */}
-                
                 {calendarData}
             </div>
         </div>

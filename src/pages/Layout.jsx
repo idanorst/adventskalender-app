@@ -11,7 +11,6 @@ export default function Layout() {
 
     const date = new Date()
     const day = date.getDate()
-    /* const day = 24 */
     const month = date.getMonth()
     const stringifiedMonth = months[month]
 
@@ -24,7 +23,7 @@ export default function Layout() {
 
     return (
         <div className='container'>
-            <Snowfall style={{zIndex: '100', height: '800px'}}/>
+            <Snowfall style={{zIndex: '100'}}/>
             <div className='top-row'>
                 <Link path='realtive' to='..' className='home-link'>🏠</Link>
                 {(windowWidth > 410 && windowWidth < 1000) && <h2>🎄</h2>}

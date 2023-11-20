@@ -33,16 +33,11 @@ export default function StartPage() {
                 >Se kalender</Link>
                 :
                 <Link 
-                    to='../calendar'
+                    to={localStorage.getItem('idList') ? '../calendar' : '../shared'}
                     relative='path'
                     className='link-button link--visit'
                 >Se kalender</Link>}
-                {calendarCreated ? 
-                <Link 
-                onClick={showViewAlert}
-                className='link-button link--create'
-                >Lag kalender</Link>
-                : 
+                {!calendarCreated && 
                 <Link 
                     to='../createCalendar'
                     relative='path'
@@ -59,10 +54,3 @@ export default function StartPage() {
         </div>
     )
 }
-
-{/* <Link
-                to='../shared'
-                relative='path'
-                className='link-button link--share'
-                >Åpne delt kalender</Link>
-                : */}

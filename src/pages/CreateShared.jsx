@@ -19,6 +19,9 @@ export default function CreateShared() {
         fr.readAsText(file)
         document.querySelector('.show-link').classList.remove('blocked')
         localStorage.setItem('calendarCreated', true)
+        if (localStorage.getItem('idList')) {
+            localStorage.removeItem('idList')
+        }
     }
 
     function showWarning() {

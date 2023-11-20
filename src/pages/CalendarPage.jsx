@@ -9,8 +9,6 @@ import CalendarBox from '../components/CalendarBox'
 import { saveAs } from 'file-saver'
 
 export default function CalenderPage() {
-    /* document.querySelector("body").style.overflow = "hidden" */
-
     let randomNumbers = [
         60, 10, 64, 30, 22, 51, 1, 8, 39, 36, 62, 50, 18, 25, 
         26, 11, 31, 2, 43, 14, 55, 66, 59, 32, 54, 23, 5, 20, 
@@ -23,10 +21,10 @@ export default function CalenderPage() {
     const customMadeData = JSON.parse(localStorage.getItem('custom-data')) || JSON.parse(localStorage.getItem('calendar-data')) || []
     const customCreated = JSON.parse(localStorage.getItem('custom-data'))
     const [idList, setIdList] = React.useState(JSON.parse(localStorage.getItem('idList')) || [])
-    const [ day, month ] = useOutletContext()
+    const [ day ] = useOutletContext()
     const [date, setDate] = React.useState()
     const location = useLocation()
-    const [calendarData, setCalendarData] = React.useState(setData)
+    const [calendarData] = React.useState(setData)
     const [earlyDate, setEarlyDate] = React.useState()
     const [sharePopup, setSharePopup] = React.useState()
     const [emailInfo, setEmailInfo] = React.useState()
@@ -35,9 +33,6 @@ export default function CalenderPage() {
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     
     const [wrongDate, setWrongDate] = React.useState()
-
-    console.log(month)
-
 
     function setData() {
         var calendarElements = []
@@ -52,7 +47,7 @@ export default function CalenderPage() {
 
     function setTodaysDate(data) {
         for (let i = 0; i < data.length; i++) {
-            if (parseInt(data[i].props.date) === day/*  && month === 11 */) {
+            if (parseInt(data[i].props.date) === day) {
                 setDate(data[i])
             }
         }
@@ -60,7 +55,6 @@ export default function CalenderPage() {
 
     function restoreCalendarData() {
         const calendarElements = []
-        console.log(customMadeData)
         if (customMadeData.length === 24) {
             for (let i = 0; i < 24; i++) {
                 calendarElements.push(
@@ -73,7 +67,6 @@ export default function CalenderPage() {
                     />
                 )
             }
-            console.log(calendarElements)
         } else {
             for (let i = 0; i < 24; i++) {
                 calendarElements.push(
@@ -92,7 +85,6 @@ export default function CalenderPage() {
     }
 
     function createNewCalendarElements() {
-        console.log(location.state)
         const calendarElements = []
         if (location.state?.search === '?customMade'){
             for (let i = 0; i < customMadeData.length; i++) {
@@ -110,7 +102,7 @@ export default function CalenderPage() {
 
         } else {
             if (location.state?.search === '?familieaktiviteter') {
-                var count = 0
+                let count = 0
                 for (let i = 0; i < randomNumbers.length; i++) {
                     if (data[randomNumbers[i]].category.includes('Familieaktivitet') && count < 24) {
                         count += 1
@@ -127,7 +119,7 @@ export default function CalenderPage() {
                     }
                 }
             } else if (location.state?.search === '?fysisk') {
-                var count = 0
+                let count = 0
                 for (let i = 0; i < randomNumbers.length; i++) {
                     if (data[randomNumbers[i]].category.includes('Fysisk aktivitet') && count < 24) {
                         count += 1
@@ -144,8 +136,7 @@ export default function CalenderPage() {
                     }
                 }
             } else if (location.state?.search === '?kulinarisk') {
-                console.log("kulinarisk")
-                var count = 0
+                let count = 0
                 for (let i = 0; i < randomNumbers.length; i++) {
                     if (data[randomNumbers[i]].category.includes('Kulinarisk aktivitet') && count < 24) {
                         count += 1
@@ -183,7 +174,6 @@ export default function CalenderPage() {
     localStorage.setItem('idList', JSON.stringify(idList))
         
     function calendarBoxClicked(date) {
-        /* setBoxClicked(true) */
         if (day === parseInt(date)) {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
@@ -206,23 +196,12 @@ export default function CalenderPage() {
     }
 
     function closePopup() {
-        setShowPopup(false)
-        if (localStorage.getItem(date.props.date)) {
-            document.getElementById(date.props.id).innerHTML = date.props.data.icon
-            document.getElementById(date.props.id).style.backdropFilter = 'blur(5px)';
-        } else {
-            document.getElementById(date.props.id).innerHTML = date.props.date
-        }
+        document.getElementById(date.props.id).innerHTML = date.props.date
     }
 
     function closeEarlyPopup() {
         setShowEarlyPopup(false)
-        if (localStorage.getItem(earlyDate.props.date)) {
-            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.data.icon
-            document.getElementById(earlyDate.props.id).style.backdropFilter = 'blur(5px)';
-        } else {
-            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
-        }
+        document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
     }
 
     function closeWarningPopup() {
@@ -232,18 +211,28 @@ export default function CalenderPage() {
     function setTodaysDateChecked() {
         if (localStorage.getItem(date.props.date)){
             localStorage.removeItem(date.props.date)
+            setShowEarlyPopup(false)
+            document.getElementById(date.props.id).innerHTML = date.props.date
         } else {
             localStorage.setItem(date.props.date, true)
+            setShowPopup(false)
+            document.getElementById(date.props.id).innerHTML = date.props.data.icon
+            document.getElementById(date.props.id).style.backdropFilter = 'blur(5px)'
         }
+        
         
     }
 
     function setEarlyDateChecked() {
         if (localStorage.getItem(earlyDate.props.date)){
-            console.log('Checked')
             localStorage.removeItem(earlyDate.props.date)
+            setShowEarlyPopup(false)
+            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
         } else {
             localStorage.setItem(earlyDate.props.date, true)
+            setShowEarlyPopup(false)
+            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.data.icon
+            document.getElementById(earlyDate.props.id).style.backdropFilter = 'blur(5px)'
         }
         
     }
@@ -287,6 +276,7 @@ export default function CalenderPage() {
     function closeShare() {
         setSharePopup(false)
     }
+
 
     return (
         <div className='calendar-page--container'>
