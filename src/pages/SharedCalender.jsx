@@ -65,23 +65,12 @@ export default function SharedCalendar() {
     }
 
     function closePopup() {
-        setShowPopup(false)
-        if (localStorage.getItem(date.props.date)) {
-            document.getElementById(date.props.id).innerHTML = date.props.data.icon
-            document.getElementById(date.props.id).style.backdropFilter = 'blur(5px)';
-        } else {
-            document.getElementById(date.props.id).innerHTML = date.props.date
-        }
+        document.getElementById(date.props.id).innerHTML = date.props.date
     }
 
     function closeEarlyPopup() {
         setShowEarlyPopup(false)
-        if (localStorage.getItem(earlyDate.props.date)) {
-            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.data.icon
-            document.getElementById(earlyDate.props.id).style.backdropFilter = 'blur(5px)';
-        } else {
-            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
-        }
+        document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
     }
 
     function closeWarningPopup() {
@@ -91,17 +80,28 @@ export default function SharedCalendar() {
     function setTodaysDateChecked() {
         if (localStorage.getItem(date.props.date)){
             localStorage.removeItem(date.props.date)
+            setShowEarlyPopup(false)
+            document.getElementById(date.props.id).innerHTML = date.props.date
         } else {
             localStorage.setItem(date.props.date, true)
+            setShowPopup(false)
+            document.getElementById(date.props.id).innerHTML = date.props.data.icon
+            document.getElementById(date.props.id).style.backdropFilter = 'blur(5px)'
         }
+        
+        
     }
 
     function setEarlyDateChecked() {
         if (localStorage.getItem(earlyDate.props.date)){
-            console.log('Checked')
             localStorage.removeItem(earlyDate.props.date)
+            setShowEarlyPopup(false)
+            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
         } else {
             localStorage.setItem(earlyDate.props.date, true)
+            setShowEarlyPopup(false)
+            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.data.icon
+            document.getElementById(earlyDate.props.id).style.backdropFilter = 'blur(5px)'
         }
     }
 
