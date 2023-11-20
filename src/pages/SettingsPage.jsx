@@ -3,9 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Dropdown from '../components/Dropdown'
 import DatalistInput from 'react-datalist-input'
-/* import { click } from '@testing-library/user-event/dist/click' */
 import { FaCircleInfo } from 'react-icons/fa6'
-/* import { saveAs } from 'file-saver' */
 import ActivityExamples from './ActivityExamples'
 
 export default function SettingsPage() {
@@ -18,7 +16,6 @@ export default function SettingsPage() {
     const [clickedDate, setClickedDate] = React.useState()
     const [activity, setActivity] = React.useState()
     const [icon, setIcon] = React.useState()
-    /* const [completeDate, setCompleteDate] = React.useState(false) */
     const [showExamples, setShowExamples] = React.useState(false)
     const [chooseWarning, setChooseWarning] = React.useState(false)
 
@@ -99,7 +96,6 @@ export default function SettingsPage() {
     }
 
     function openCreatePopUp() {
-        /* setCompleteDate(false) */
         const datePos = dateList.indexOf(clickedDate)
         if (customMadeData[datePos]) {
             console.log("already in list")
@@ -116,10 +112,6 @@ export default function SettingsPage() {
         const currentActivity = document.querySelector("#activity").value
         const currentIcon = document.querySelector(".react-datalist-input__textbox").value
         const datePos = dateList.indexOf(clickedDate)
-
-        /* if (currentActivity && currentIcon) {
-            setCompleteDate(true)
-        } */
 
         if ((!currentActivity || !currentIcon) && customMadeData[datePos]) {
             console.log("hdk")
@@ -152,9 +144,6 @@ export default function SettingsPage() {
         document.querySelector(".mini-calendar").children[clickedDate-1].classList.add("date-completed")
         setCreatePopUp(false)
         setShowExamples(false)
-        /* setCompleteDate(false) */
-        /* setActivity()
-        setIcon() */
     }
 
     function closeCreatePopup(event) {
@@ -188,7 +177,6 @@ export default function SettingsPage() {
             if (!currentActivity && !currentIcon && dateList.includes(clickedDate)) {
                 dateList.pop()
             }
-            /* setCompleteDate(true) */
             setCreatePopUp(false)
         }
         setShowExamples(false)
@@ -208,7 +196,6 @@ export default function SettingsPage() {
         console.log("2")
         if (string === "tilbake") {
             document.querySelector(".warning").style.display = "block"
-            /* setCompleteDate(true) */
         } else if (string === "ingen endring") {
             document.querySelector(".no-change-warning").style.display = "block"
         } else if (string === "no complete change") {
@@ -225,7 +212,6 @@ export default function SettingsPage() {
         document.querySelector(".add-warning").style.display = "none"
         document.querySelector(".no-change-warning").style.display = "none"
         document.querySelector(".no-complete-change-warning").style.display = "none"
-        /* setCompleteDate(false) */
     }
 
     function openExamples() {
