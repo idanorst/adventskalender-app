@@ -33,6 +33,7 @@ export default function CalenderPage() {
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     
     const [wrongDate, setWrongDate] = React.useState()
+    const december = false
 
     function setData() {
         var calendarElements = []
@@ -174,14 +175,14 @@ export default function CalenderPage() {
     localStorage.setItem('idList', JSON.stringify(idList))
         
     function calendarBoxClicked(date) {
-        if (day === parseInt(date)) {
+        if (day === parseInt(date) && december) {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
                     setShowPopup(true)
                     document.getElementById(calendarData[i].props.id).innerHTML = ''
                 }
             }
-        } else if (date < day) {
+        } else if (date < day && december) {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
                     setEarlyDate(calendarData[i])
