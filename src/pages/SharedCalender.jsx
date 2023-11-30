@@ -15,7 +15,7 @@ export default function SharedCalendar() {
     const [showEarlyPopup, setShowEarlyPopup] = React.useState(false)
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     const [wrongDate, setWrongDate] = React.useState()
-    let december = false
+    let december = true
 
     function setTodaysDate(data) {
         for (let i = 0; i < data.length; i++) {
