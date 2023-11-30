@@ -1129,7 +1129,7 @@ input[type=checkbox] {
   }
 }
 
-@media screen and (min-width: 400px) {
+/*@media screen and (min-width: 400px) {
   .top-row {
     font-size: 1rem;
   }
@@ -1137,7 +1137,7 @@ input[type=checkbox] {
   .home-link {
     margin-right: 9rem;
   }
-}
+}*/
 
 @media screen and (min-width: 500px) {
   .home-link {
