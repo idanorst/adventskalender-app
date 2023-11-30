@@ -5,3 +5,8 @@ Denne appen ble påbegynt etter at min mor ønsket en litt annen vri på fjorår
 🎅🎅🎅🎅🎅🎅🎅
 
 I en verden der vi stadig skal ta mer klimavennlige valg, hva er vel mer klimavennlig enn en digital kalender, som du også kan dele med venner og familie? Jeg håper i hvertfall at denne kan tas i bruk av flere etterhvert, og med det bidra til å senke overforbruk og handling av varer man egentlig ikke trenger. 
+
+🎄🎄🎄🎄🎄🎄🎄🎄🎄🎄🎄
+
+Kalenderen kan prøves ved å klikke på linken under:
+https://spectacular-malabi-3d8c56.netlify.app/
