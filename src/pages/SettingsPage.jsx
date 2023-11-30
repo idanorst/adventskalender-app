@@ -237,9 +237,9 @@ export default function SettingsPage() {
     return (
         <div className='settings-page'>
             <div className='info-div'>
-                <h3>Lag en kalender</h3>
-                <p>Her kan du lage din egen adventskalender. Du kan velge mellom fire kategorier i dropdown-menyen, som setter sammen en kalender basert på kategorien du velger. Kategoriene du kan velge mellom er <span className='italic'>familieaktiviteter</span>, <span className='italic'>fysiske utfordringer</span>, <span className='italic'>kulinariske aktiviteter</span> og <span className='italic'>god blanding</span>.</p>
-                <p>Alternativ to er at du selv fyller inn kalenderaktiviteter etter eget ønske. Her vil det også være mulig å velge mellom aktiviteter som allerede ligger i databasen.</p>
+                <h3>Lag din egen kalender</h3>
+                <p>Her kan du lage din egen adventskalender på to ulike måter. Enten kan du velge mellom kategoriene <span className='italic'>familieaktiviteter</span>, <span className='italic'>fysiske utfordringer</span>, <span className='italic'>kulinariske aktiviteter</span> og <span className='italic'>god blanding</span> i dropdown-menyen, og få opp en kalender basert på det.</p>
+                <p>Eller, dersom du ønsker å være litt mer kreativ, så kan du selv fylle inn kalenderaktiviteter etter eget ønske. Om du trenger inspirasjon er det eksempler tilgjenglig underveis. Lykke til og god jul!</p>
             </div>
             <div className='options-div'>
                 <div className='settings-page--container'>

@@ -218,6 +218,7 @@ body {
 .info-div {
   padding: 1rem 2rem;
   text-align: center;
+  width: 80%;
 }
 
 .info-div > h3 {
