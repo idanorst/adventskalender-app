@@ -33,7 +33,7 @@ export default function CalenderPage() {
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     
     const [wrongDate, setWrongDate] = React.useState()
-    const december = false
+    const december = true
 
     function setData() {
         var calendarElements = []
