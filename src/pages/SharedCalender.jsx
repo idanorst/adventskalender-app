@@ -66,6 +66,7 @@ export default function SharedCalendar() {
     }
 
     function closePopup() {
+        setShowPopup(false)
         document.getElementById(date.props.id).innerHTML = date.props.date
     }
 
