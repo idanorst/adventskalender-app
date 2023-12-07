@@ -32,8 +32,8 @@ export default function CalenderPage() {
     const [showEarlyPopup, setShowEarlyPopup] = React.useState(false)
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
 
-    const [dateStatus, setDateStatus] = React.useState(false)
-    const [earlyDateStatus, setEarlyDateStatus] = React.useState(false)
+    const [dateStatus, setDateStatus] = React.useState()
+    const [earlyDateStatus, setEarlyDateStatus] = React.useState()
     
     const [wrongDate, setWrongDate] = React.useState()
     const december = true
@@ -200,13 +200,17 @@ export default function CalenderPage() {
     }
 
     function closePopup() {
-        document.getElementById(date.props.id).innerHTML = date.props.date
+        setShowPopup(false)
+        if (dateStatus) {
+            document.getElementById(date.props.id).innerHTML = date.props.data.icon
+        } else {
+            document.getElementById(date.props.id).innerHTML = date.props.date
+        }
     }
 
     function closeEarlyPopup() {
         setShowEarlyPopup(false)
         if (earlyDateStatus) {
-            console.log("closing")
             document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.data.icon
         } else {
             document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
