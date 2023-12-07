@@ -200,12 +200,7 @@ export default function CalenderPage() {
     }
 
     function closePopup() {
-        setShowPopup(false)
-        if (dateStatus) {
-            document.getElementById(date.props.id).innerHTML = date.props.data.icon
-        } else {
-            document.getElementById(date.props.id).innerHTML = date.props.date
-        }
+        document.getElementById(date.props.id).innerHTML = date.props.date
     }
 
     function closeEarlyPopup() {

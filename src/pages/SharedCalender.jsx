@@ -15,6 +15,7 @@ export default function SharedCalendar() {
     const [showEarlyPopup, setShowEarlyPopup] = React.useState(false)
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
     const [wrongDate, setWrongDate] = React.useState()
+    let december = true
 
     function setTodaysDate(data) {
         for (let i = 0; i < data.length; i++) {
@@ -43,14 +44,14 @@ export default function SharedCalendar() {
     }
 
     function calendarBoxClicked(date) {
-        if (day === parseInt(date)) {
+        if ((day === parseInt(date)) && december) {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
                     setShowPopup(true)
                     document.getElementById(calendarData[i].props.id).innerHTML = ''
                 }
             }
-        } else if (date < day) {
+        } else if ((date < day) && december) {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
                     setEarlyDate(calendarData[i])
@@ -65,6 +66,7 @@ export default function SharedCalendar() {
     }
 
     function closePopup() {
+        setShowPopup(false)
         document.getElementById(date.props.id).innerHTML = date.props.date
     }
 
@@ -87,9 +89,7 @@ export default function SharedCalendar() {
             setShowPopup(false)
             document.getElementById(date.props.id).innerHTML = date.props.data.icon
             document.getElementById(date.props.id).style.backdropFilter = 'blur(5px)'
-        }
-        
-        
+        }    
     }
 
     function setEarlyDateChecked() {

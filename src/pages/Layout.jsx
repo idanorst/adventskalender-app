@@ -26,13 +26,13 @@ export default function Layout() {
             <Snowfall style={{zIndex: '100'}}/>
             <div className='top-row'>
                 <Link path='realtive' to='..' className='home-link'>🏠</Link>
-                {(windowWidth > 410 && windowWidth < 1000) && <h2>🎄</h2>}
+                {(windowWidth > 450 && windowWidth < 1000) && <h2>🎄</h2>}
                 {windowWidth > 1000 && <h2>🎄🎄</h2>}
                 <h2>{(day === 24) ? 'Juleaften' : `${day}. ${stringifiedMonth}`}</h2>
-                {windowWidth >= 410 && <h2>🎄🎅🎄</h2>}
-                {windowWidth < 410 && <h2>🎄🎄</h2>}
+                {windowWidth >= 450 && <h2>🎄🎅🎄</h2>}
+                {windowWidth < 450 && <h2>🎄🎄</h2>}
                 <h2>Dager igjen til jul: {daysUntilChristmas} </h2>
-                {(windowWidth > 410 && windowWidth < 1000) && <h2>🎄</h2>}
+                {(windowWidth > 450 && windowWidth < 1000) && <h2>🎄</h2>}
                 {windowWidth > 1000 && <h2>🎄🎄</h2>}
             </div>
             <Outlet context ={[day, month]}/>
