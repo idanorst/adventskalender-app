@@ -31,9 +31,12 @@ export default function CalenderPage() {
     const [showPopup, setShowPopup] = React.useState(false)
     const [showEarlyPopup, setShowEarlyPopup] = React.useState(false)
     const [showWarningPopup, setShowWarningPopup] = React.useState(false)
+
+    const [dateStatus, setDateStatus] = React.useState(false)
+    const [earlyDateStatus, setEarlyDateStatus] = React.useState(false)
     
     const [wrongDate, setWrongDate] = React.useState()
-    const december = false
+    const december = true
 
     function setData() {
         var calendarElements = []
@@ -197,12 +200,22 @@ export default function CalenderPage() {
     }
 
     function closePopup() {
-        document.getElementById(date.props.id).innerHTML = date.props.date
+        setShowPopup(false)
+        if (dateStatus) {
+            document.getElementById(date.props.id).innerHTML = date.props.data.icon
+        } else {
+            document.getElementById(date.props.id).innerHTML = date.props.date
+        }
     }
 
     function closeEarlyPopup() {
         setShowEarlyPopup(false)
-        document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
+        if (earlyDateStatus) {
+            console.log("closing")
+            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.data.icon
+        } else {
+            document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
+        }
     }
 
     function closeWarningPopup() {
@@ -212,25 +225,27 @@ export default function CalenderPage() {
     function setTodaysDateChecked() {
         if (localStorage.getItem(date.props.date)){
             localStorage.removeItem(date.props.date)
-            setShowEarlyPopup(false)
+            setDateStatus(false)
+            setShowPopup(false)
             document.getElementById(date.props.id).innerHTML = date.props.date
         } else {
             localStorage.setItem(date.props.date, true)
+            setDateStatus(true)
             setShowPopup(false)
             document.getElementById(date.props.id).innerHTML = date.props.data.icon
             document.getElementById(date.props.id).style.backdropFilter = 'blur(5px)'
         }
-        
-        
     }
 
     function setEarlyDateChecked() {
         if (localStorage.getItem(earlyDate.props.date)){
+            setEarlyDateStatus(false)
             localStorage.removeItem(earlyDate.props.date)
             setShowEarlyPopup(false)
             document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.date
         } else {
             localStorage.setItem(earlyDate.props.date, true)
+            setEarlyDateStatus(true)
             setShowEarlyPopup(false)
             document.getElementById(earlyDate.props.id).innerHTML = earlyDate.props.data.icon
             document.getElementById(earlyDate.props.id).style.backdropFilter = 'blur(5px)'
@@ -238,13 +253,14 @@ export default function CalenderPage() {
         
     }
 
-    function checkIfChecked(date) {
+    /* function checkIfChecked(date) {
+        console.log("checking")
         if (localStorage.getItem(date)){
             return 'checked'
         } else {
             return ''
         }
-    }
+    } */
 
     function shareCalendar() {
         if (JSON.parse(localStorage.getItem('custom-data')).length > 0){
@@ -296,7 +312,7 @@ export default function CalenderPage() {
                             {localStorage.getItem(date.props.date) ? 
                                 <input 
                                     type='checkbox' 
-                                    checked={checkIfChecked(date.props.date)}
+                                    checked={dateStatus}
                                     onChange={setTodaysDateChecked}
                                 ></input>
                                 :
@@ -320,7 +336,7 @@ export default function CalenderPage() {
                             {localStorage.getItem(earlyDate.props.date) ? 
                                 <input 
                                     type='checkbox' 
-                                    checked={checkIfChecked(earlyDate.props.date)} 
+                                    checked={earlyDateStatus} 
                                     onChange={setEarlyDateChecked}
                                 ></input>
                                 :
