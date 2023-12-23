@@ -791,6 +791,19 @@ body {
   padding-bottom: 1rem;
 }
 
+#god-jul {
+  top: 15rem;
+}
+
+#god-jul-heading {
+  margin-top: 5rem;
+  font-size: 2.8rem;
+}
+
+#god-jul-icon  {
+  font-size: 4rem;
+}
+
 .calendar-box {
   display: flex;
   justify-content: center;

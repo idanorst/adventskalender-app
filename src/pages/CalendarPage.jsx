@@ -38,6 +38,8 @@ export default function CalenderPage() {
     const [wrongDate, setWrongDate] = React.useState()
     const december = true
 
+    const [godJul, setGodJul] = React.useState(localStorage.getItem('god-jul') || false) 
+
     function setData() {
         var calendarElements = []
         if (!calendarCreated) {
@@ -292,11 +294,23 @@ export default function CalenderPage() {
     function closeShare() {
         setSharePopup(false)
     }
-
+    
+    function closeGodJul() {
+        setGodJul(true)
+        localStorage.setItem('god-jul', true)
+    }
 
     return (
         <div className='calendar-page--container'>
             <div className='calendar-page--content'>
+                {(!godJul && december && day === 24) && 
+                    <div className='pop-up' id='god-jul'>
+                        <button className='close-button' onClick={closeGodJul}>
+                            &times;
+                        </button>
+                        <h2 id='god-jul-heading'>God jul!</h2>
+                        <p id='god-jul-icon'>🎄</p>
+                    </div> }
                 {showPopup && <div className='pop-up-container'>
                     <div className='pop-up'>
                         <button className='close-button' onClick={closePopup}>
