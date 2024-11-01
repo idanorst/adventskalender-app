@@ -49,6 +49,10 @@ export default function StartPage() {
                     relative='path'
                     className='link-button link--share'
                 >Åpne delt kalender</Link>}
+                {calendarCreated && <button
+                    className='link-button link--create'
+                    onClick={localStorage.removeItem('calendarCreated')}
+                >Tøm kalender</button>}
             </div>
             
         </div>
