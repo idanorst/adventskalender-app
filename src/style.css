@@ -791,6 +791,28 @@ body {
   padding-bottom: 1rem;
 }
 
+#empty {
+  top: 15rem;
+  text-align: center;
+}
+
+#empty-heading {
+  margin-top: 4rem;
+  font-size: 1.5rem;
+}
+
+#empty-icon  {
+  font-size: 3rem;
+}
+
+#empty-link {
+  background-color: rgb(189, 72, 72);
+  padding: 0.8rem;
+  text-decoration: none;
+  color: whitesmoke;
+  border-radius: 1rem;
+}
+
 #god-jul {
   top: 15rem;
 }

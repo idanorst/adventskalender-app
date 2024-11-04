@@ -3,10 +3,12 @@ import '../style.css'
 import CalendarBox from "../components/CalendarBox"
 import { 
     useOutletContext,
-    useLocation
+    useLocation, 
+    Link
 } from 'react-router-dom'
 
 export default function SharedCalendar() {
+    const [emptyCalendar, setEmptyCalendar] = React.useState(false)
     const [ day ] = useOutletContext()
     const [date, setDate] = React.useState()
     const [calendarData, setCalendarData] = React.useState(restoreCalendarData)
@@ -30,6 +32,9 @@ export default function SharedCalendar() {
 
     function restoreCalendarData() {
         const calendarData = JSON.parse(localStorage.getItem('calendar-data'))
+        if (calendarData === null) {
+            setEmptyCalendar(true)
+        } else {
         const calendarElements = []
         for (let i = 0; i < calendarData.length; i++) {
             calendarElements.push(
@@ -44,6 +49,7 @@ export default function SharedCalendar() {
         }
         setTodaysDate(calendarElements)
         return calendarElements
+        }
     }
 
     function calendarBoxClicked(date) {
@@ -134,9 +140,19 @@ export default function SharedCalendar() {
         localStorage.setItem('god-jul', true)
     }
 
+    function clearCalendar(){
+        localStorage.clear()
+    }
+
     return (
         <div className="calendar-page--container shared-container">
             <div className='calendar-page--content'>
+                 {emptyCalendar && 
+                    <div className='pop-up' id='empty'>
+                        <h2 id='empty-heading'>Kalenderen er dessverre utdatert</h2>
+                        <p id='empty-icon'>🎄</p>
+                        <Link to='..' id='empty-link' onClick={clearCalendar}>Lag ny kalender</Link>
+                    </div> }
                 {(!godJul && december && day === 24) && 
                     <div className='pop-up' id='god-jul'>
                         <button className='close-button' onClick={closeGodJul}>

@@ -18,6 +18,11 @@ export default function StartPage() {
         setShowCreateWarning(prevState => !prevState)
     }
 
+    function clearCalendar() {
+        localStorage.clear()
+        window.location.reload();
+    }
+
     return (
         <div className='start-page--container'>
             <div className='start-page--info'>
@@ -49,10 +54,10 @@ export default function StartPage() {
                     relative='path'
                     className='link-button link--share'
                 >Åpne delt kalender</Link>}
-                {calendarCreated && <button
+                {calendarCreated && <Link
                     className='link-button link--create'
-                    onClick={localStorage.removeItem('calendarCreated')}
-                >Tøm kalender</button>}
+                    onClick={clearCalendar}
+                >Tøm kalender</Link>}
             </div>
             
         </div>
