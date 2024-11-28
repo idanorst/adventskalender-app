@@ -53,14 +53,14 @@ export default function SharedCalendar() {
     }
 
     function calendarBoxClicked(date) {
-        if ((day === parseInt(date)) && december) {
+        if ((day === parseInt(date)) && december != false) {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
                     setShowPopup(true)
                     document.getElementById(calendarData[i].props.id).innerHTML = ''
                 }
             }
-        } else if ((date < day) && december) {
+        } else if ((date < day) && december != false) {
             for (let i = 0; i < calendarData.length; i++){
                 if (calendarData[i].props.date === date){
                     setEarlyDate(calendarData[i])
