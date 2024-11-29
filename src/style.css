@@ -573,7 +573,7 @@ body {
   border: none;
   text-decoration: underline;
   cursor: pointer;
-  margin-left: 1rem;
+  width: 200px;
 }
 
 .examples-link:hover{
