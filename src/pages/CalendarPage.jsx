@@ -36,7 +36,7 @@ export default function CalenderPage() {
     const [earlyDateStatus, setEarlyDateStatus] = React.useState()
     
     const [wrongDate, setWrongDate] = React.useState()
-    const december = false
+    const december = true
 
     const [godJul, setGodJul] = React.useState(localStorage.getItem('god-jul') || false) 
 
