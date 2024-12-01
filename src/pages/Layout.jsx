@@ -20,7 +20,7 @@ export default function Layout() {
 
     let difference =  christmas.getTime() - date.getTime()
     let daysUntilChristmas = Math.ceil(difference / (1000 * 3600 * 24))
-    let december = false
+    let december = true
 
     return (
         <div className='container'>
