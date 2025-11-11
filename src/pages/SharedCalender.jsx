@@ -19,7 +19,7 @@ export default function SharedCalendar() {
     const [wrongDate, setWrongDate] = React.useState()
     const [dateStatus, setDateStatus] = React.useState()
     const [earlyDateStatus, setEarlyDateStatus] = React.useState()
-    let december = true
+    let december = false
     const [godJul, setGodJul] = React.useState(localStorage.getItem('god-jul') || false) 
 
     function setTodaysDate(data) {
