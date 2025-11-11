@@ -14,7 +14,7 @@ export default function Layout() {
     const month = date.getMonth()
     const stringifiedMonth = months[month]
 
-    const christmas = new Date('12/24/2024')
+    const christmas = new Date('12/24/2025')
 
     const windowWidth = window.innerWidth
 
